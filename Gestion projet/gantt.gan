@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2014-10-14" view-index="0" gantt-divider-location="353" resource-divider-location="300" version="2.0" locale="fr_FR">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2014-10-14" view-index="0" gantt-divider-location="353" resource-divider-location="300" version="2.0" locale="fr">
     <description/>
     <view zooming-state="default:0" id="gantt-chart">
         <field id="tpd3" name="Nom" width="57" order="0"/>
@@ -7,7 +7,7 @@
     </view>
     <view id="resource-table">
         <field id="0" name="Nom" width="50" order="0"/>
-        <field id="1" name="Rôle par défaut" width="49" order="1"/>
+        <field id="1" name="Rôle par défaut" width="50" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -42,19 +42,16 @@
             <task id="4" name="DOP Final" color="#8cb6ce" meeting="false" start="2014-10-21" duration="1" complete="0" expand="true"/>
             <task id="6" name="Préparation présentation" meeting="false" start="2014-10-21" duration="1" complete="0" expand="true"/>
         </task>
-        <task id="7" name="Calculs" meeting="false" start="2014-10-14" duration="4" complete="0" expand="true">
+        <task id="7" name="Calculs" meeting="false" start="2014-10-14" duration="4" complete="0" expand="false">
             <task id="9" name="Prise de mesures" meeting="false" start="2014-10-14" duration="1" complete="0" expand="true">
                 <depend id="8" type="2" difference="0" hardness="Strong"/>
             </task>
             <task id="8" name="Odométrie" meeting="false" start="2014-10-15" duration="3" complete="0" expand="true"/>
         </task>
-        <task id="11" name="Serveur" meeting="false" start="2014-10-15" duration="4" complete="0" expand="true">
-            <task id="13" name="Communication Arduino" meeting="false" start="2014-10-15" duration="2" complete="0" expand="true">
-                <depend id="15" type="2" difference="0" hardness="Strong"/>
-            </task>
+        <task id="11" name="Serveur" meeting="false" start="2014-10-17" duration="2" complete="0" expand="false">
             <task id="15" name="Communication Client" meeting="false" start="2014-10-17" duration="2" complete="0" expand="true"/>
         </task>
-        <task id="16" name="Cartographie Client" meeting="false" start="2014-10-14" duration="5" complete="0" expand="true">
+        <task id="16" name="Cartographie Client" meeting="false" start="2014-10-14" duration="5" complete="0" expand="false">
             <task id="17" name="Choix technique" meeting="false" start="2014-10-14" duration="1" complete="0" expand="true">
                 <depend id="18" type="2" difference="0" hardness="Strong"/>
             </task>
@@ -63,7 +60,7 @@
             </task>
             <task id="20" name="Communication Serveur" meeting="false" start="2014-10-17" duration="2" complete="0" expand="true"/>
         </task>
-        <task id="21" name="Programmation Arduino" meeting="false" start="2014-10-15" duration="4" complete="0" expand="true">
+        <task id="21" name="Programmation Arduino" meeting="false" start="2014-10-14" duration="5" complete="0" expand="false">
             <task id="26" name="Choix algorithme" meeting="false" start="2014-10-14" duration="1" complete="0" expand="true">
                 <depend id="22" type="2" difference="0" hardness="Strong"/>
             </task>
