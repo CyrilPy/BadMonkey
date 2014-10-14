@@ -6,8 +6,8 @@
         <field id="tpd5" name="Date de fin" width="21" order="2"/>
     </view>
     <view id="resource-table">
-        <field id="0" name="Nom" width="52" order="0"/>
-        <field id="1" name="Rôle par défaut" width="47" order="1"/>
+        <field id="0" name="Nom" width="50" order="0"/>
+        <field id="1" name="Rôle par défaut" width="49" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -48,29 +48,32 @@
             </task>
             <task id="8" name="Odométrie" meeting="false" start="2014-10-15" duration="3" complete="0" expand="true"/>
         </task>
-        <task id="11" name="Serveur" meeting="false" start="2014-10-15" duration="3" complete="0" expand="true">
+        <task id="11" name="Serveur" meeting="false" start="2014-10-15" duration="4" complete="0" expand="true">
             <task id="13" name="Communication Arduino" meeting="false" start="2014-10-15" duration="2" complete="0" expand="true">
                 <depend id="15" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="15" name="Communication Client" meeting="false" start="2014-10-17" duration="1" complete="0" expand="true"/>
+            <task id="15" name="Communication Client" meeting="false" start="2014-10-17" duration="2" complete="0" expand="true"/>
         </task>
-        <task id="16" name="Cartographie Client" meeting="false" start="2014-10-14" duration="4" complete="0" expand="true">
+        <task id="16" name="Cartographie Client" meeting="false" start="2014-10-14" duration="5" complete="0" expand="true">
             <task id="17" name="Choix technique" meeting="false" start="2014-10-14" duration="1" complete="0" expand="true">
                 <depend id="18" type="2" difference="0" hardness="Strong"/>
             </task>
             <task id="18" name="Interface" meeting="false" start="2014-10-15" duration="2" complete="0" expand="true">
                 <depend id="20" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="20" name="Communication Serveur" meeting="false" start="2014-10-17" duration="1" complete="0" expand="true"/>
+            <task id="20" name="Communication Serveur" meeting="false" start="2014-10-17" duration="2" complete="0" expand="true"/>
         </task>
-        <task id="21" name="Programmation Arduino" meeting="false" start="2014-10-15" duration="3" complete="0" expand="true">
+        <task id="21" name="Programmation Arduino" meeting="false" start="2014-10-15" duration="4" complete="0" expand="true">
+            <task id="26" name="Choix algorithme" meeting="false" start="2014-10-14" duration="1" complete="0" expand="true">
+                <depend id="22" type="2" difference="0" hardness="Strong"/>
+            </task>
             <task id="22" name="Détection d'obstacle" meeting="false" start="2014-10-15" duration="1" complete="0" expand="true">
                 <depend id="23" type="2" difference="0" hardness="Strong"/>
             </task>
             <task id="23" name="Contournement" meeting="false" start="2014-10-16" duration="1" complete="0" expand="true">
                 <depend id="25" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="25" name="Création carte" meeting="false" start="2014-10-17" duration="1" complete="0" expand="true"/>
+            <task id="25" name="Création carte" meeting="false" start="2014-10-17" duration="2" complete="0" expand="true"/>
         </task>
     </tasks>
     <resources/>
