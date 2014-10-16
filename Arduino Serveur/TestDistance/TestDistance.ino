@@ -19,7 +19,17 @@ YunServer server;
 
 #define DEFAULT_STEP_NUMBER     100
 #define INFRARED_SENSOR_INPUT	A0
-#define SAMPLES	                11
+#define SAMPLES	                50
+
+
+//Robot parameters
+#define WHEEL_DIAM  69 // mm
+#define WHEEL_PERIM  218 // mm
+#define STEPMOTOR  200  // pas du moteur pour faire 360°
+#define RADIAN_PER_DEG  3.14159265359/180 
+#define TRACK  123  // Entraxe entre le mileu des roues
+#define ENCODER_FACTOR  WHEEL_PERIM/20 
+#define COEFF_CORRECTION 3 //Coefficient correcteur pour le frottement
 
 
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
@@ -31,6 +41,19 @@ int counter = 0;
 int cpt = 0;
 int tabIR[SAMPLES];
 
+//Parametres pour l'odometrie
+int left_encoder;
+int right_encoder;
+float dd ;
+float dg ;
+float theta;
+float wg;
+float wd;
+float xPrime;
+float yPrime;
+float posX ;
+float posY ;
+
 void motorInitialize()
 {
   run = false;
@@ -38,8 +61,8 @@ void motorInitialize()
   AFMS.begin();
 
   // rotation per min
-  motor1->setSpeed(60);
-  motor2->setSpeed(60);
+  motor1->setSpeed(100);
+  motor2->setSpeed(100);
   motor1->release();
   motor2->release();
 
@@ -89,6 +112,20 @@ void motorBackward()
   }
 }
 
+//Marche avant de X mm
+void motorForward(int lenght_to_do)
+{
+    int steptodo = (double)lenght_to_do / (double)WHEEL_PERIM * (double) 200;
+	Console.println("motorForward");
+        Console.println(steptodo);
+        for (int i=0; i < steptodo ; i++)
+	{
+		motor1->step(1, FORWARD, SINGLE);
+		motor2->step(1, FORWARD, SINGLE); 
+	}
+        calculPosition (DEFAULT_STEP_NUMBER,DEFAULT_STEP_NUMBER);
+}
+
 void motorTurnRight()
 {
   for (int i = 0; i < DEFAULT_STEP_NUMBER; i++)
@@ -135,6 +172,47 @@ void motorTurnLeft()
   }
 }*/
 
+//Calcul la position du robot (Odometrie)
+void calculPosition (int step_left, int step_right)
+{
+        left_encoder = step_left;
+        right_encoder = step_right;
+                
+        //Calcul des deplacements en millimetres
+        float dd = right_encoder * ENCODER_FACTOR;
+        float dg = left_encoder * ENCODER_FACTOR;
+                
+        //Calcul de l'angle theta
+        theta = (dd-dg)/TRACK ;
+                
+        //Calcul des vitesses angulaires
+        wg = left_encoder * 1.8 * RADIAN_PER_DEG;
+        wg = wg/3;
+        wd = right_encoder * 1.8 * RADIAN_PER_DEG;
+        wd = wd/3;
+                
+        //Calcul des composantes vitesses
+        xPrime = (WHEEL_DIAM/2) * ( (wd+wg)/2 * cos(theta) );
+        yPrime = (WHEEL_DIAM/2) * ( (wd+wg)/2 * sin(theta) );
+        
+        posX = posX + ( 3 * xPrime);
+        posY = posY + ( 3 * yPrime);
+        
+        //Affichage de la console
+        Console.println("Encodeur gauche: ");
+        Console.println("Encodeur droit: ");
+        Console.println(dd);
+        Console.println(dg);
+        Console.println(theta);
+        Console.println(wg);
+        Console.println(wd);
+        Console.println(xPrime);
+        Console.println(yPrime);
+        Console.println("Position :");
+        Console.println(posX);
+        Console.println(posY);
+}
+
 void loop()
 {
 	YunClient client = server.accept();
@@ -166,7 +244,7 @@ void executeUrlCommand(YunClient client)
 	{
 		Console.println(client.readString());
                 Console.println("Move forward...");
-                motorForward();
+                motorForward(50);
 	}
 	else if (command=="bwd")
 	{
@@ -230,22 +308,23 @@ void executeUrlCommand(YunClient client)
 	else if (command=="getdistance")
 	{           
               double distance = (double)recordIR();
-              //Polynome : x*3,09806E-14	-7,88745E-11	8,10272E-08	-4,30409E-05	0,012581264	-1,991097159	156,2339364              
+              //Polynome : 3,09806E-14	-7,88745E-11	8,10272E-08	-4,30409E-05	0,012581264	-1,991097159	156,2339364 
+              //Polynom V2 : 2,76075E-14	-6,99111E-11	7,15462E-08	-3,80057E-05	0,011194502	-1,807762943	146,981348             
               double distanceCM;
               distanceCM = 
-              pow(distance, 6)*(3.09806/100000000000000) +
-              pow(distance, 5)*(-7.88745/100000000000) +
-              pow(distance, 4)*(8.10272/100000000) +
-              pow(distance, 3)*(-4.30409/100000) +
-              pow(distance, 2)*0.012581264 +
-              (distance*(-1.991097159)) +
-              156.2339364;
+              pow(distance, 6)*(2.76075/100000000000000) +
+              pow(distance, 5)*(-6.99111/100000000000) +
+              pow(distance, 4)*(7.15462/100000000) +
+              pow(distance, 3)*(-3.80057/100000) +
+              pow(distance, 2)*0.011194502 +
+              (distance*(-1.807762943)) +
+              146.981348;
 	      client.print(distanceCM );
 	}
 	else if (command=="getmap")
 	{           
               double distance = (double)recordIR();
-              //Polynome : x*3,09806E-14	-7,88745E-11	8,10272E-08	-4,30409E-05	0,012581264	-1,991097159	156,2339364              
+              //Polynome : 3,09806E-14	-7,88745E-11	8,10272E-08	-4,30409E-05	0,012581264	-1,991097159	156,2339364              
               double distanceCM;
               distanceCM = 
               pow(distance, 6)*(3.09806/100000000000000) +
