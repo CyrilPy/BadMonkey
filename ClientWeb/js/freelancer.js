@@ -1,39 +1,59 @@
+/// @file freelancer.js
+/// @author justine sabbatier
+/// @version 1.5
+/// @date 17/10/2014
 
- 
-//var monJSON = eval("[[[30,50],[120,70]],[[200,250],[200,290]],[[110,50],[150,120]]]");
+////////////////////// VARIABLES GLOBALES
+
+/// @def x		abscisse
 var x;
+/// @def y		ordonnées
 var y;
+/// @def robx	abscisse du robot
+var robx;
+/// @def roby		ordonnées du robot
+var roby;
+/// @def tobo 		orientation du robot
+var tobo;
+/// @def canvas		canvas du site affichant les obstacles
 var canvas;
+/// @def context		context du canvas
 var context;
-
-
+/// @def TO_RADIANS		valeur du radian
+var TO_RADIANS = Math.PI/180;
+/// @def robot		image du robot
+ var robot = new Image();
+    robot.src = 'img/robotCanvas.png'; 
  
- /// @def data Json 
-var data;
  
-/// @fn function comServer(method, method2)
-/// @brief Courte description.ajax fonction for connecting supervisor and server
-/// @param method; here function jsonTable(data)		
-/// @param method; here function mapCoord(data)
-   
+ 
+////////////////////// FONCTIONS
 
-function JsonCoord( monJSON)
-{
-	monJSON = eval(monJSON);
-	for (var k in monJSON)
-	{
-		x=(monJSON[k][0][0]);
-		y=(monJSON[k][0][1]);
-		context.moveTo(x, y);
-		x=(monJSON[k][1][0]);
-		y=(monJSON[k][1][1]);
-		context.lineTo(x, y);
-		console.log(x);
-	}
-	context.stroke();//On trace seulement les lignes.
-	context.closePath();
-} 
 
+/// @brief fonction qui recuperer le canvas et le contexte et appelle les fonctions de communications
+window.onload = function()
+{	
+     canvas = document.getElementById('myCanvas');
+     if(!canvas)
+        {
+            alert("Impossible de récupérer le canvas");
+            return;
+        }
+     context = canvas.getContext('2d');
+     if(!context)
+        {
+            alert("Impossible de récupérer le context du canvas");
+            return;
+        }
+		initialize(canvas, context);
+		context.beginPath();//On démarre un nouveau tracé
+		comServer(JsonCoord);
+}
+
+
+/// @fn function comServer(method)
+/// @brief fonction qui envoie un get au serveur
+/// @param method
 function comServer(method)
 {
 	  $.ajax({
@@ -43,33 +63,93 @@ function comServer(method)
 		   404 : function (){alert( "Server offline")}
 	   }
     }).done(function( msg ){method(msg);});
-   } 
+   }
 
-window.onload = function()
-{	
-     canvas = document.getElementById('myCanvas');
-        if(!canvas)
-        {
-            alert("Impossible de récupérer le canvas");
-            return;
-        }
+   
+/// @fn function JsonCoord( monJSON)
+/// @brief fonction qui évalue le json et recupere dans des variables les coordonées
+/// @param monJSON		
+function JsonCoord( monJSON)
+{
+	/*interpretation du json*/
+	monJSON = eval(monJSON);
+	/* parcours de l'array des coordonnées des obstacles*/
+	for (var k in monJSON[1])
+	{
+		x=(monJSON[1][k][0][0]);
+		y=(monJSON[1][k][0][1]);
+		context.moveTo(x, y);
+		x=(monJSON[1][k][1][0]);
+		y=(monJSON[1][k][1][1]);
+		context.lineTo(x, y);
+	}
+	/* coordonnées robots*/
+	robo=(monJSON[0][2]);
+	robx=(monJSON[0][0]);
+	roby=(monJSON[0][1]);
+	drawRotatedImage(robot, robx, roby, robo);
+	console.log(robo);
+	/*dessins*/
+	context.stroke();//On trace seulement les lignes.
+	context.closePath();	
+} 
 
-     context = canvas.getContext('2d');
-        if(!context)
-        {
-            alert("Impossible de récupérer le context du canvas");
-            return;
-        }
-		
-		
-		initialize(canvas, context);
-		context.beginPath();//On démarre un nouveau tracé
-		comServer(JsonCoord);
 
-
+/// @fn function drawRotatedImage(image, x, y, angle)
+/// @brief fonction qui effectue la rotation de l'image du robot en fonction de ses coordonnées
+/// @param image ; variable contenant l'image
+/// @param x ; variable des abscises
+/// @param y ; variables des ordonnées
+/// @param angle ; variable de l'angle d'orientation
+function drawRotatedImage(image, x, y, angle) { 
+	// save the current co-ordinate system 
+	// before we screw with it
+	context.save(); 
+	// move to the middle of where we want to draw our image
+	context.translate(x, y);
+	// rotate around that point, converting our 
+	// angle from degrees to radians 
+	context.rotate(angle * TO_RADIANS);
+	// draw it up and to the left by half the width
+	// and height of the image 
+	context.drawImage(image, -(image.width/2), -(image.height/2)); 
+	// and restore the co-ords to how they were when we began
+	context.restore(); 
 }
 
-/************TELECHARGER IMAGE***********/
+
+/// @fn function initialize()
+/// @brief fonction qui initialise la taille du canvas en fonction de la fenetre
+function initialize() 
+{
+	// Register an event listener to
+	// call the resizeCanvas() function each time 
+	// the window is resized.
+	window.addEventListener('resize', resizeCanvas, false);
+	// Draw canvas border for the first time.
+	resizeCanvas();
+}
+
+
+/// @fn function redraw()
+/// @brief fonction qui redessine les traits en couleur #2c3e50 et en épaisseur de trait 5
+function redraw() {
+	context.strokeStyle = '#2c3e50';
+	context.lineWidth = '5';
+		}
+
+/// @fn function redraw()
+/// @brief Draw canvas border for the first time.
+function resizeCanvas() 
+{
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	redraw();
+}
+
+
+
+////////////////////// TELECHARGER IMAGE
 
 
 /**
@@ -90,28 +170,8 @@ document.getElementById('download').addEventListener('click', function() {
     downloadCanvas(this, 'myCanvas', 'carte.png');
 }, false)
 
-function initialize() {
-// Register an event listener to
-// call the resizeCanvas() function each time 
-// the window is resized.
-window.addEventListener('resize', resizeCanvas, false);
 
-// Draw canvas border for the first time.
-resizeCanvas();
-}
-
-function redraw() {
-		context.strokeStyle = '#2c3e50';
-		context.lineWidth = '5';
-		context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
-            }
-
-function resizeCanvas() 
-{
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
-	redraw();
-}
+////////////////////// ACTION RAFRAICHISSEMENT
 
 $("#connect").click(function (e)
 {
@@ -122,7 +182,7 @@ $("#connect").click(function (e)
 });
 
 
-/************EFFETS SITE***********/
+////////////////////// EFFETS SITE
 
 // jQuery for page scrolling feature - requires jQuery Easing plugin
 $(function() {
