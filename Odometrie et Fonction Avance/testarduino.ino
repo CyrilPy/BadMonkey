@@ -201,6 +201,22 @@ void turnDegreeRight(int degree_to_turn){
         Console.println(theta);
 }
 
+float* localizePointObject (float irDetection){
+     float tabObjPos [1];    
+  
+     float posObjX = irDetection * sin (theta);
+     float posObjY = irDetection * cos (theta);
+     
+     posObjX = posX + posObjX;
+     posObjY = posY + posObjY;
+     
+     tabObjPos [0] = posObjX;
+     tabObjPos [1] = posObjY;  
+     
+     return tabObjPos;
+}
+
+
 void setup()
 {
 	Bridge.begin();
