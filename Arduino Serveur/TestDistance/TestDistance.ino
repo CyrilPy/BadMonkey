@@ -320,6 +320,7 @@ void executeUrlCommand(YunClient client)
               (distance*(-1.807762943)) +
               146.981348;
 	      client.print(distanceCM );
+	      client.print(distanceCM );
 	}
 	else if (command=="getmap")
 	{           
@@ -334,7 +335,8 @@ void executeUrlCommand(YunClient client)
               pow(distance, 2)*0.012581264 +
               (distance*(-1.991097159)) +
               156.2339364;
-	      client.print(distanceCM );
+	      Console.print(distanceCM);
+	      client.print(distanceCM);
 	}
 	else
 	{
