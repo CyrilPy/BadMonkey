@@ -334,12 +334,10 @@ void executeUrlCommand(YunClient client)
               (distance*(-1.807762943)) +
               146.981348;
 	      client.print(distanceCM );
-	      client.print(distanceCM );
 	}
 	else if (command=="getvcc")
 	{
-	      Console.print(readVcc);
-	      client.print(readVcc);
+	      Console.print((long unsigned)readVcc);
 	}
 	else if (command=="getmap")
 	{           
