@@ -94,6 +94,20 @@ void setup()
 
 }
 
+long readVcc()
+{
+  long result;
+  // Read 1.1V reference against AVcc
+  ADMUX = _BV(REFS0) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1);
+  delay(2); // Wait for Vref to settle
+  ADCSRA |= _BV(ADSC); // Convert
+  while (bit_is_set(ADCSRA,ADSC));
+  result = ADCL;
+  result |= ADCH<<8;
+  result = 1125300L / result; // Back-calculate AVcc in mV
+  return result;
+}
+
 void motorForward()
 {
   for (int i = 0; i < DEFAULT_STEP_NUMBER; i++)
@@ -321,6 +335,11 @@ void executeUrlCommand(YunClient client)
               146.981348;
 	      client.print(distanceCM );
 	      client.print(distanceCM );
+	}
+	else if (command=="getvcc")
+	{
+	      Console.print(readVcc);
+	      client.print(readVcc);
 	}
 	else if (command=="getmap")
 	{           
