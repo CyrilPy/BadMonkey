@@ -340,20 +340,8 @@ void executeUrlCommand(YunClient client)
 	      Console.print((long unsigned)readVcc);
 	}
 	else if (command=="getmap")
-	{           
-              double distance = (double)recordIR();
-              //Polynome : 3,09806E-14	-7,88745E-11	8,10272E-08	-4,30409E-05	0,012581264	-1,991097159	156,2339364              
-              double distanceCM;
-              distanceCM = 
-              pow(distance, 6)*(3.09806/100000000000000) +
-              pow(distance, 5)*(-7.88745/100000000000) +
-              pow(distance, 4)*(8.10272/100000000) +
-              pow(distance, 3)*(-4.30409/100000) +
-              pow(distance, 2)*0.012581264 +
-              (distance*(-1.991097159)) +
-              156.2339364;
-	      Console.print(distanceCM);
-	      client.print(distanceCM);
+	{
+	      client.print("getmap");
 	}
 	else
 	{
