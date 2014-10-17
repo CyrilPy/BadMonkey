@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="classie_8js" kind="file">
+    <compoundname>classie.js</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="classie_8js_1a04a8a2bbfa9c15500892b8e5033d625b" prot="public" static="no" mutable="no">
+        <type>function</type>
+        <definition>window</definition>
+        <argsstring></argsstring>
+        <name>window</name>
+        <initializer>{
+
+&apos;use strict&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>classie - class helper functions from bonzo <ulink url="https://github.com/ded/bonzo">https://github.com/ded/bonzo</ulink></para><para>classie.has( elem, &apos;my-class&apos; ) -&gt; true/false classie.add( elem, &apos;my-new-class&apos; ) classie.remove( elem, &apos;my-unwanted-class&apos; ) classie.toggle( elem, &apos;my-class&apos; ) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" line="14" column="1" bodyfile="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classie_8js_1a8e132f04879bc2239b3b1da18cc847cf" prot="public" static="no" mutable="no">
+        <type>var</type>
+        <definition>var hasClass</definition>
+        <argsstring></argsstring>
+        <name>hasClass</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" line="26" column="1" bodyfile="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classie_8js_1a57e5cb8badec875cafcb2999c25e197f" prot="public" static="no" mutable="no">
+        <type>var</type>
+        <definition>addClass</definition>
+        <argsstring></argsstring>
+        <name>addClass</name>
+        <initializer>= function( elem, <ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref> ) {
+    <ref refid="classie_8js_1a55bf8e12339412d59e0a999214324127" kindref="member">if</ref> ( !<ref refid="bootstrap_8min_8js_1afa9eb56c756985e9715e3820fd044aa3" kindref="member">hasClass</ref>( elem, <ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref> ) ) {
+      elem.className = elem.className + &apos; &apos; + <ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref>;
+    }
+  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" line="26" column="1" bodyfile="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classie_8js_1a09a362292f94c3c9d5087472c4d4b17b" prot="public" static="no" mutable="no">
+        <type>var</type>
+        <definition>removeClass</definition>
+        <argsstring></argsstring>
+        <name>removeClass</name>
+        <initializer>= function( elem, <ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref> ) {
+    elem.className = elem.className.replace( <ref refid="classie_8js_1aa96fedc5c8bebbc1f0e20bc4856fbe1e" kindref="member">classReg</ref>( <ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref> ), &apos; &apos; );
+  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" line="26" column="1" bodyfile="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classie_8js_1a0544c3fe466e421738dae463968b70ba" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>else</definition>
+        <argsstring></argsstring>
+        <name>else</name>
+        <initializer>{
+  <ref refid="bootstrap_8min_8js_1afa9eb56c756985e9715e3820fd044aa3" kindref="member">hasClass</ref> = function( elem, <ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref> ) {
+    return <ref refid="classie_8js_1aa96fedc5c8bebbc1f0e20bc4856fbe1e" kindref="member">classReg</ref>( <ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref> ).test( elem.className );
+  }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" line="39" column="1" bodyfile="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classie_8js_1a9f4b9e75c56fc85f19bc8489be3499d7" prot="public" static="no" mutable="no">
+        <type>var</type>
+        <definition>var classie</definition>
+        <argsstring></argsstring>
+        <name>classie</name>
+        <initializer>= {
+  
+  hasClass: <ref refid="bootstrap_8min_8js_1afa9eb56c756985e9715e3820fd044aa3" kindref="member">hasClass</ref>,
+  addClass: <ref refid="classie_8js_1a57e5cb8badec875cafcb2999c25e197f" kindref="member">addClass</ref>,
+  removeClass: <ref refid="classie_8js_1a09a362292f94c3c9d5087472c4d4b17b" kindref="member">removeClass</ref>,
+  toggleClass: <ref refid="classie_8js_1a1cd44c289bf8fbb4f0acb2ed5f44bc63" kindref="member">toggleClass</ref>,
+  
+  has: <ref refid="bootstrap_8min_8js_1afa9eb56c756985e9715e3820fd044aa3" kindref="member">hasClass</ref>,
+  add: <ref refid="classie_8js_1a57e5cb8badec875cafcb2999c25e197f" kindref="member">addClass</ref>,
+  remove: <ref refid="classie_8js_1a09a362292f94c3c9d5087472c4d4b17b" kindref="member">removeClass</ref>,
+  toggle: <ref refid="classie_8js_1a1cd44c289bf8fbb4f0acb2ed5f44bc63" kindref="member">toggleClass</ref>
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" line="58" column="1" bodyfile="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="classie_8js_1aa96fedc5c8bebbc1f0e20bc4856fbe1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>function</type>
+        <definition>function classReg</definition>
+        <argsstring>(className)</argsstring>
+        <name>classReg</name>
+        <param>
+          <type>className</type>
+          <defname>className</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" line="20" column="1" bodyfile="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" bodystart="20" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classie_8js_1aa80c7710e5c88bd2e80211728d8b326d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>if</definition>
+        <argsstring>( &apos;classList&apos;in document.documentElement)</argsstring>
+        <name>if</name>
+        <param>
+          <type>&apos;classList&apos;in document.</type>
+          <declname>documentElement</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" line="28" column="1" bodyfile="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" bodystart="28" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classie_8js_1a1cd44c289bf8fbb4f0acb2ed5f44bc63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>function</type>
+        <definition>function toggleClass</definition>
+        <argsstring>(elem, c)</argsstring>
+        <name>toggleClass</name>
+        <param>
+          <type>elem</type>
+          <defname>elem</defname>
+        </param>
+        <param>
+          <type><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref></type>
+          <defname>c</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" line="53" column="1" bodyfile="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" bodystart="53" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classie_8js_1a55bf8e12339412d59e0a999214324127" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>if</definition>
+        <argsstring>(typeof define=== &apos;function&apos;&amp;&amp;define.amd)</argsstring>
+        <name>if</name>
+        <param>
+          <type>typeof</type>
+          <declname>define</declname>
+          <defval>== &apos;function&apos;&amp;&amp;define.amd</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" line="72" column="1" bodyfile="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js" bodystart="72" bodyend="75"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="11"><highlight class="comment">/*jshint<sp/>browser:<sp/>true,<sp/>strict:<sp/>true,<sp/>undef:<sp/>true<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">/*global<sp/>define:<sp/>false<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="classie_8js_1a04a8a2bbfa9c15500892b8e5033d625b" refkind="member"><highlight class="normal">(<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">(<sp/><ref refid="classie_8js_1a04a8a2bbfa9c15500892b8e5033d625b" kindref="member">window</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="stringliteral">&apos;use<sp/>strict&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/>class<sp/>helper<sp/>functions<sp/>from<sp/>bonzo<sp/>https://github.com/ded/bonzo</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="classie_8js_1aa96fedc5c8bebbc1f0e20bc4856fbe1e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">function</highlight><highlight class="normal"><sp/><ref refid="classie_8js_1aa96fedc5c8bebbc1f0e20bc4856fbe1e" kindref="member">classReg</ref>(<sp/>className<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>RegExp(</highlight><highlight class="stringliteral">&quot;(^|\\s+)&quot;</highlight><highlight class="normal"><sp/>+<sp/>className<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;(\\s+|$)&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>classList<sp/>support<sp/>for<sp/>class<sp/>management</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/>altho<sp/>to<sp/>be<sp/>fair,<sp/>the<sp/>api<sp/>sucks<sp/>because<sp/>it<sp/>won&apos;t<sp/>accept<sp/>multiple<sp/>classes<sp/>at<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="classie_8js_1a09a362292f94c3c9d5087472c4d4b17b" refkind="member"><highlight class="normal">var<sp/><ref refid="classie_8js_1a8e132f04879bc2239b3b1da18cc847cf" kindref="member">hasClass</ref>,<sp/><ref refid="classie_8js_1a57e5cb8badec875cafcb2999c25e197f" kindref="member">addClass</ref>,<sp/><ref refid="classie_8js_1a09a362292f94c3c9d5087472c4d4b17b" kindref="member">removeClass</ref>;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="classie_8js_1aa80c7710e5c88bd2e80211728d8b326d" refkind="member"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/></highlight><highlight class="stringliteral">&apos;classList&apos;</highlight><highlight class="normal"><sp/>in<sp/>document.documentElement<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>hasClass<sp/>=<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">(<sp/>elem,<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>elem.classList.contains(<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>addClass<sp/>=<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">(<sp/>elem,<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>elem.classList.add(<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>removeClass<sp/>=<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">(<sp/>elem,<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>elem.classList.remove(<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39" refid="classie_8js_1a0544c3fe466e421738dae463968b70ba" refkind="member"><highlight class="normal"></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>hasClass<sp/>=<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">(<sp/>elem,<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classie_8js_1aa96fedc5c8bebbc1f0e20bc4856fbe1e" kindref="member">classReg</ref>(<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>).test(<sp/>elem.className<sp/>);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/>addClass<sp/>=<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">(<sp/>elem,<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>!<ref refid="classie_8js_1a8e132f04879bc2239b3b1da18cc847cf" kindref="member">hasClass</ref>(<sp/>elem,<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>)<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>elem.className<sp/>=<sp/>elem.className<sp/>+<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal"><sp/>+<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>removeClass<sp/>=<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal">(<sp/>elem,<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>elem.className<sp/>=<sp/>elem.className.replace(<sp/><ref refid="classie_8js_1aa96fedc5c8bebbc1f0e20bc4856fbe1e" kindref="member">classReg</ref>(<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>),<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal"><sp/>);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="classie_8js_1a1cd44c289bf8fbb4f0acb2ed5f44bc63" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">function</highlight><highlight class="normal"><sp/><ref refid="classie_8js_1a1cd44c289bf8fbb4f0acb2ed5f44bc63" kindref="member">toggleClass</ref>(<sp/>elem,<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>var<sp/><ref refid="jquery-1_811_80_8js_1a4f0af84f62a6e2f4aee1d072192b48ec" kindref="member">fn</ref><sp/>=<sp/><ref refid="classie_8js_1a8e132f04879bc2239b3b1da18cc847cf" kindref="member">hasClass</ref>(<sp/>elem,<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>)<sp/>?<sp/>removeClass<sp/>:<sp/><ref refid="classie_8js_1a57e5cb8badec875cafcb2999c25e197f" kindref="member">addClass</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><ref refid="jquery-1_811_80_8js_1a4f0af84f62a6e2f4aee1d072192b48ec" kindref="member">fn</ref>(<sp/>elem,<sp/><ref refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kindref="member">c</ref><sp/>);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="classie_8js_1a9f4b9e75c56fc85f19bc8489be3499d7" refkind="member"><highlight class="normal">var<sp/><ref refid="classie_8js_1a9f4b9e75c56fc85f19bc8489be3499d7" kindref="member">classie</ref><sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>full<sp/>names</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>hasClass:<sp/><ref refid="classie_8js_1a8e132f04879bc2239b3b1da18cc847cf" kindref="member">hasClass</ref>,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>addClass:<sp/><ref refid="classie_8js_1a57e5cb8badec875cafcb2999c25e197f" kindref="member">addClass</ref>,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>removeClass:<sp/><ref refid="classie_8js_1a09a362292f94c3c9d5087472c4d4b17b" kindref="member">removeClass</ref>,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><ref refid="classie_8js_1a1cd44c289bf8fbb4f0acb2ed5f44bc63" kindref="member">toggleClass</ref>:<sp/><ref refid="classie_8js_1a1cd44c289bf8fbb4f0acb2ed5f44bc63" kindref="member">toggleClass</ref>,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>short<sp/>names</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>has:<sp/><ref refid="classie_8js_1a8e132f04879bc2239b3b1da18cc847cf" kindref="member">hasClass</ref>,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>add:<sp/><ref refid="classie_8js_1a57e5cb8badec875cafcb2999c25e197f" kindref="member">addClass</ref>,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">remove</highlight><highlight class="normal">:<sp/><ref refid="classie_8js_1a09a362292f94c3c9d5087472c4d4b17b" kindref="member">removeClass</ref>,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><ref refid="bootstrap_8min_8js_1aa8e797a9bda5e7e313be3518054164a3" kindref="member">toggle</ref>:<sp/><ref refid="classie_8js_1a1cd44c289bf8fbb4f0acb2ed5f44bc63" kindref="member">toggleClass</ref></highlight></codeline>
+<codeline lineno="69"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">//<sp/>transport</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="classie_8js_1a55bf8e12339412d59e0a999214324127" refkind="member"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>typeof<sp/>define<sp/>===<sp/></highlight><highlight class="stringliteral">&apos;function&apos;</highlight><highlight class="normal"><sp/>&amp;&amp;<sp/>define.amd<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>AMD</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>define(<sp/>classie<sp/>);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>browser<sp/>global</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><ref refid="classie_8js_1a04a8a2bbfa9c15500892b8e5033d625b" kindref="member">window</ref>.classie<sp/>=<sp/><ref refid="classie_8js_1a9f4b9e75c56fc85f19bc8489be3499d7" kindref="member">classie</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">})(<sp/><ref refid="classie_8js_1a04a8a2bbfa9c15500892b8e5033d625b" kindref="member">window</ref><sp/>);</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/classie.js"/>
+  </compounddef>
+</doxygen>
