@@ -272,14 +272,11 @@ void parcoursMainGauche()
     {
       case 1:
       Console.println("cas 1, avance ou scan");  
-        if(lastDistance < 250)
-          {   
-            etatParcours=4;
-          }else{
+        
             Console.println(distAvance);
             motorForward(distAvance);
             etatParcours=2;
-          }
+          
         break;
         
      case 2:
@@ -289,12 +286,16 @@ void parcoursMainGauche()
           
             if(lastDistance < 130)
             {  
-              //tournée à droite
-              Console.println("oui");
-              etatParcours=3;
+              
+                //tourner à droite
+                Console.println("oui");
+                etatParcours=3;
+              
             }
-            else
-            {
+            else if(lastDistance < 250)
+              {   
+                etatParcours=4;
+              }else{
               Console.println("non");
               distAvance = lastDistance - 250;
                etatParcours=1;
@@ -313,7 +314,7 @@ void parcoursMainGauche()
           Console.println("cas 4, balayage");
         //verifier si l'on a bien le point le plus proche a +/-10°
         turnDegreeRight(SCAN_ANGLE/2);
-        etatParcours=5;
+        etatParcours=1;
         for(int angle=0;angle<SCAN_ANGLE/2;angle++)
         {
           lastDistance= getDistance() * 10;
@@ -323,15 +324,16 @@ void parcoursMainGauche()
           }
           turnDegreeLeft(2);
         }
-        turnDegreeRight(SCAN_ANGLE/2);        
+        turnDegreeRight(SCAN_ANGLE/2);
+        distAvance = lastDistance - 130;        
         break; 
-     case 5:
+    /* case 5:
           Console.println("cas 5, avance après balayage");
           lastDistance= getDistance() * 10;
           distAvance = lastDistance - 130;          
           motorForward(distAvance);
           etatParcours=3;
-          break;
+          break;*/
     }
 }
 
