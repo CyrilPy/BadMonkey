@@ -148,7 +148,7 @@ void turnDegreeLeft(int degree_to_turn){
 	}
         
         //Enregistrement du theta
-        theta = theta + degree_to_turn % 360;
+        theta = (theta + degree_to_turn) % 360;
 }
 
 //Fonction tourne a droite de X degres
@@ -162,7 +162,7 @@ void turnDegreeRight(int degree_to_turn){
 	}
         
         //Enregistrement du theta
-        theta = theta - degree_to_turn % 360;
+        theta = (theta - degree_to_turn) % 360;
 
 }
 
