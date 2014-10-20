@@ -1,21 +1,22 @@
-// code qui parcours la pièce
+  // code qui parcours la pièce
 // How to use it :
 // - open the Arduino serial console
 
 #include <Arduino.h>
 #include <Console.h>
 
-#include <YunServer.h>
-#include <YunClient.h>
+#include <Bridge.h>
+#include <HttpClient.h>
 
 #include <Wire.h>
 
 #include <Adafruit_MotorShield.h>
 #include "utility/Adafruit_PWMServoDriver.h"
 
-
-#define DEFAULT_STEP_NUMBER	100
+#define DEFAULT_STEP_NUMBER		100
 #define INFRARED_SENSOR_INPUT	A0
+
+#define SCAN_ANGLE 	30
 
 //Robot parameters
 #define WHEEL_DIAM  69 // mm
@@ -42,15 +43,11 @@ float theta = 0;
 float posX =0;
 float posY =0;
 
-YunServer server;
-
 int etatHttp;
-int etatParcours=1;  
+int etatParcours=2;
 
 void motorInitialize()
-{
-
-	
+{	
 	AFMS.begin();
 	
 	// rotation per min
@@ -58,35 +55,33 @@ void motorInitialize()
   	motor2->setSpeed(100);  
   	motor1->release();
   	motor2->release(); 
-
 }
 
-// Return the value of the IR sensor, mean value from 10 samples in 100 ms
+
 int recordIR()
 {
   int cumulAnalogValue = 0;
   int analogValue;
-  int samples = 10;
+  int samples = 5;
   for (int i = 1; i <= samples; i++)
   {
     analogValue = analogRead(INFRARED_SENSOR_INPUT);
     cumulAnalogValue += analogValue; 
     //Console.println("Instant value :");
     //Console.println(analogValue);
-    delay(10);   
+    delay(5);   
   }
   //Console.println("Mean value :");
   //Console.println(cumulAnalogValue/samples);
-  return((int)cumulAnalogValue/samples);   
+  return((int)cumulAnalogValue/samples);
+   
 }
 
-// Return the distance in cm read from the sensor
 float getDistance()
 {
   int valueSensor= recordIR();
   double distanceCM;
   distanceCM = 
-  // Polynomial regression calculated from the calibration
   pow(valueSensor, 6)*(2.76075/100000000000000) +
   pow(valueSensor, 5)*(-6.99111/100000000000) +
   pow(valueSensor, 4)*(7.15462/100000000) +
@@ -94,7 +89,7 @@ float getDistance()
   pow(valueSensor, 2)*0.011194502 +
   (valueSensor*(-1.807762943)) +
   146.981348;
-  return ((float)distanceCM*10);
+  return ((float)distanceCM);
 }
 
 //Marche avant
@@ -242,128 +237,103 @@ void turnDegreeRight(int degree_to_turn){
         Console.println(theta);
         */
 }
+
+void updateServer()
+{
+  HttpClient client;
+  Console.println("Envoie requête HTTP au serveur");
+  int posRob[2] = {52,12};
+  int posObj[2] = {23,78};
+  client.get("http://perso.imerir.com/jloeve/savePoint.php");
+  //String url = "perso.imerir.com:80/mdacosta/badmonkeys/savePoint.php?xr="+String((int)posRob[0], DEC)+"&yr="+String((int)posRob[1], DEC)+"&xm="+String((int)posObj[0], DEC)+"&ym="+String((int)posObj[1], DEC)+"&a="+String((int)theta, DEC);  
+  Console.println("http://arduino.cc:80/asciilogo.txt");  
+  //client.get(url);
+  while (client.available()){
+    char c = client.read();
+    Console.print(c);
+  }
+}
+
+void localisePointObject(float distance)
+{
+  return;
+}
  
  
-float distanceMin=999999;
+float distanceMin=90;
 float lastDistance=0;
 short int angleDistMin=0;
 
+int distAvance;
 void parcoursMainGauche()
 {
 
     switch (etatParcours)
     {
-    //recherche du mur le plus proche
       case 1:
-      Console.println("cas 1, init");  
-        for(int angle=0; angle < 360; angle+=10)
-        {
-          turnDegreeLeft(10);
-          lastDistance= getDistance();
-          
-          if ( lastDistance < distanceMin)
-          {
-            distanceMin=lastDistance;
-            angleDistMin=angle;
-            
-          }
-
-        }
-        turnDegreeLeft(angleDistMin);
-        etatParcours=2;
-        break;
+      Console.println("cas 1, avance ou scan");  
         
+            Console.println(distAvance);
+            motorForward(distAvance);
+            etatParcours=2;
+          
+        break;
         
      case 2:
-      Console.println("cas 2, balayage");
-        //verifier si l'on a bien le point le plus proche a +/-10°
-        turnDegreeRight(10);
-        for(int angle=0;angle<10;angle++)
-        {
-          lastDistance= getDistance();
-          if ( lastDistance < distanceMin)
-          {
-            distanceMin=lastDistance;
-            angleDistMin=angle;
-
-          }
-          turnDegreeLeft(2);
-
-        }
-        turnDegreeRight(20-angleDistMin);
-
-        etatParcours = 3;
-        break;
-        
-      case 3:
-      Console.println("cas 3, phase d'approche");
-        //etat ou l'on avance tout droit jusqu'à être a 7cm du mur
-        while(lastDistance >= 150 )
-        {
+      Console.println("cas 2, Mur ou pas");
+        lastDistance= getDistance() * 10;
+          Console.println(lastDistance);
           
-          
-          if(lastDistance > 150)
-            motorForward(lastDistance - 80);
-          else if(lastDistance > 70 && lastDistance < 150)
-            motorForward(lastDistance - 30);       
-          lastDistance = getDistance();
-                   
-      }
-       
-       
+            if(lastDistance < 130)
+            {  
+              
+                //tourner à droite
+                Console.println("oui");
+                etatParcours=3;
+              
+            }
+            else if(lastDistance < 250)
+              {   
+                etatParcours=4;
+              }else{
+              Console.println("non");
+              distAvance = lastDistance - 250;
+               etatParcours=1;
+            }
          
-        //delay(100);      
+          break;
+      case 3:
+      Console.println("cas 3, Tourne Random");
+        localisePointObject(lastDistance);
+        updateServer();
+        turnDegreeRight(random(45,180));
         etatParcours=4;
         break;
-        
-       //tourné a droite
-       case 4:
-       Console.println("cas 4, tourne a 90 droite");
-         turnDegreeRight(90);
-        // delay(100);
-         etatParcours = 5;
-         break;
-         
-        case 5:
-        Console.println("cas 5, mur en face entre 7 et 10 cm?");
-          //regarder s'il y a un mur en face
-          lastDistance = getDistance();
-          Console.println(lastDistance);
-          if((lastDistance > 70) && (lastDistance < 100))
-          {  
-            //tournée à droite
-            Console.println("oui");
-            etatParcours=4;
-             break;
-          }
-          else
-          {
-            Console.println("non");
-             etatParcours=7;
-             break;
-          }
           
-       
-        
-        //tourné a gauche
-       case 6:
-       Console.println("cas 6, je tourne de 90 a gauche");
-         turnDegreeLeft(90);
-         //delay(100);
-         etatParcours = 5;
-         break;
-         
-         //avancer de 2 cm
-         case 7:
-         Console.println("cas 7, j'avance");
-         Console.println("j'avance de ");
-         Console.println(lastDistance);
-            motorForward(170);
-           // delay(100);
-            etatParcours = 6;
-         break;
-           
-            
+      case 4:
+          Console.println("cas 4, balayage");
+        //verifier si l'on a bien le point le plus proche a +/-10°
+        turnDegreeRight(SCAN_ANGLE/2);
+        etatParcours=1;
+        for(int angle=0;angle<SCAN_ANGLE/2;angle++)
+        {
+          lastDistance= getDistance() * 10;
+          if ( lastDistance < 130)
+          {
+            etatParcours=3;
+          }
+          turnDegreeLeft(2);
+        }
+        turnDegreeRight(SCAN_ANGLE/2);
+        distAvance = lastDistance - 130;        
+        break; 
+    /* case 5:
+          Console.println("cas 5, avance après balayage");
+          lastDistance= getDistance() * 10;
+          distAvance = lastDistance - 130;          
+          motorForward(distAvance);
+          etatParcours=3;
+          break;*/
     }
 }
 
