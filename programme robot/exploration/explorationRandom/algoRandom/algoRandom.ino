@@ -5,17 +5,18 @@
 #include <Arduino.h>
 #include <Console.h>
 
-#include <YunServer.h>
-#include <YunClient.h>
+#include <Bridge.h>
+#include <HttpClient.h>
 
 #include <Wire.h>
 
 #include <Adafruit_MotorShield.h>
 #include "utility/Adafruit_PWMServoDriver.h"
 
-
 #define DEFAULT_STEP_NUMBER		100
 #define INFRARED_SENSOR_INPUT	A0
+
+#define SCAN_ANGLE 	30
 
 //Robot parameters
 #define WHEEL_DIAM  69 // mm
@@ -42,15 +43,11 @@ float theta = 0;
 float posX =0;
 float posY =0;
 
-YunServer server;
-
 int etatHttp;
-int etatParcours=2;  
+int etatParcours=2;
 
 void motorInitialize()
-{
-
-	
+{	
 	AFMS.begin();
 	
 	// rotation per min
@@ -58,7 +55,6 @@ void motorInitialize()
   	motor2->setSpeed(100);  
   	motor1->release();
   	motor2->release(); 
-
 }
 
 
@@ -66,14 +62,14 @@ int recordIR()
 {
   int cumulAnalogValue = 0;
   int analogValue;
-  int samples = 10;
+  int samples = 5;
   for (int i = 1; i <= samples; i++)
   {
     analogValue = analogRead(INFRARED_SENSOR_INPUT);
     cumulAnalogValue += analogValue; 
     //Console.println("Instant value :");
     //Console.println(analogValue);
-    delay(10);   
+    delay(5);   
   }
   //Console.println("Mean value :");
   //Console.println(cumulAnalogValue/samples);
@@ -241,18 +237,32 @@ void turnDegreeRight(int degree_to_turn){
         Console.println(theta);
         */
 }
+
+void updateServer()
+{
+  HttpClient client;
+  Console.println("Envoie requête HTTP au serveur");
+  int posRob[2] = {52,12};
+  int posObj[2] = {23,78};
+  client.get("http://perso.imerir.com/jloeve/savePoint.php");
+  //String url = "perso.imerir.com:80/mdacosta/badmonkeys/savePoint.php?xr="+String((int)posRob[0], DEC)+"&yr="+String((int)posRob[1], DEC)+"&xm="+String((int)posObj[0], DEC)+"&ym="+String((int)posObj[1], DEC)+"&a="+String((int)theta, DEC);  
+  Console.println("http://arduino.cc:80/asciilogo.txt");  
+  //client.get(url);
+  while (client.available()){
+    char c = client.read();
+    Console.print(c);
+  }
+}
+
+void localisePointObject(float distance)
+{
+  return;
+}
  
  
 float distanceMin=90;
 float lastDistance=0;
 short int angleDistMin=0;
-void test()
-{
-       
-          turnDegreeLeft(50);
-          delay(50);
-
-}
 
 int distAvance;
 void parcoursMainGauche()
@@ -261,8 +271,8 @@ void parcoursMainGauche()
     switch (etatParcours)
     {
       case 1:
-      Console.println("cas 1, avance");  
-        if(lastDistance < 20)
+      Console.println("cas 1, avance ou scan");  
+        if(lastDistance < 250)
           {   
             etatParcours=4;
           }else{
@@ -286,33 +296,42 @@ void parcoursMainGauche()
             else
             {
               Console.println("non");
-              distAvance = lastDistance - 200;
+              distAvance = lastDistance - 250;
                etatParcours=1;
             }
          
           break;
       case 3:
       Console.println("cas 3, Tourne Random");
-        turnDegreeRight(random(1,180));
-        etatParcours=2;
+        localisePointObject(lastDistance);
+        updateServer();
+        turnDegreeRight(random(45,180));
+        etatParcours=4;
         break;
           
       case 4:
-          Console.println("cas 2, balayage");
+          Console.println("cas 4, balayage");
         //verifier si l'on a bien le point le plus proche a +/-10°
-        turnDegreeRight(10);
-        etatParcours=2;
-        for(int angle=0;angle<20;angle++)
+        turnDegreeRight(SCAN_ANGLE/2);
+        etatParcours=5;
+        for(int angle=0;angle<SCAN_ANGLE/2;angle++)
         {
-          lastDistance= getDistance();
-          if ( lastDistance < 13)
+          lastDistance= getDistance() * 10;
+          if ( lastDistance < 130)
           {
             etatParcours=3;
-            break;
           }
-            turnDegreeLeft(2);
+          turnDegreeLeft(2);
         }
-        break;  
+        turnDegreeRight(SCAN_ANGLE/2);        
+        break; 
+     case 5:
+          Console.println("cas 5, avance après balayage");
+          lastDistance= getDistance() * 10;
+          distAvance = lastDistance - 130;          
+          motorForward(distAvance);
+          etatParcours=3;
+          break;
     }
 }
 
