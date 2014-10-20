@@ -29,14 +29,12 @@ $dsn = "mysql:host=$hostname;dbname=$database";
 		$query="select * from carte order by time desc";
 		$rs=$dbh->prepare($query);
 		$json =array();
-		$firstIteration = false;
+		$firstIteration = true;
 		$rs->execute();
 		$row = $rs->fetchAll();
 		
 		$jsonObstacle = array(array(array(),array()));
-		echo"<pre>";
-		print_r($jsonObstacle);
-		echo("</pre>");
+		
 		
 		foreach ($row as $tmp )
 		{
@@ -51,19 +49,17 @@ $dsn = "mysql:host=$hostname;dbname=$database";
 				$jsonRobot= array($xRobot,$yRobot,$alpha);
 				$firstIteration= false;
 			}
+
 			$jsonMapPoint[] = array($xMap,$yMap);
-			print_r("json map est remplis avec et donne :<br> ");
-			print_r($jsonMapPoint );
-			echo("la valeur en x est $xMap et y vaut $yMap");
+
 		}
-		echo"<pre>";
-		print_r($jsonMapPoint);
-		echo("</pre>");
-		$json=array($json
+
+		$json=array($jsonRobot,$jsonObstacle,$jsonMapPoint);
 		header('Access-Control-Allow-Origin: *');
 		header('Access-Control-Allow-Methods: GET');
+		header('Content-type: application/json');
 	header("HTTP/1.1 200 OK");	
-	echo "done";
+	echo (json_encode ($json));
 
 		
  
