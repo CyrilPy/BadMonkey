@@ -36,6 +36,7 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 Adafruit_StepperMotor * motor1 = AFMS.getStepper(200, 2);
 Adafruit_StepperMotor * motor2 = AFMS.getStepper(200, 1);
 
+int * map;
 bool run ;
 int counter = 0;
 int cpt = 0;
@@ -44,11 +45,7 @@ int tabIR[SAMPLES];
 //Parametres pour l'odometrie
 int left_encoder;
 int right_encoder;
-float dd ;
-float dg ;
 float theta;
-float wg;
-float wd;
 float xPrime;
 float yPrime;
 float posX ;
@@ -130,14 +127,14 @@ void motorBackward()
 void motorForward(int lenght_to_do)
 {
     int steptodo = (double)lenght_to_do / (double)WHEEL_PERIM * (double) 200;
-	Console.println("motorForward");
-        Console.println(steptodo);
-        for (int i=0; i < steptodo ; i++)
+    Console.println("motorForward");
+    Console.println(steptodo);
+    for (int i=0; i < steptodo ; i++)
 	{
 		motor1->step(1, FORWARD, SINGLE);
 		motor2->step(1, FORWARD, SINGLE); 
 	}
-        calculPosition (DEFAULT_STEP_NUMBER,DEFAULT_STEP_NUMBER);
+    calculPosition (DEFAULT_STEP_NUMBER,DEFAULT_STEP_NUMBER);
 }
 
 void motorTurnRight()
@@ -177,54 +174,12 @@ void motorTurnLeft()
   }
 }
 
-/*String ()
+void sentMap (YunClient* client)
 {
-  for (int i = 0; i < DEFAULT_STEP_NUMBER; i++)
-  {
-    motor1->step(1, FORWARD, SINGLE);
-    motor2->step(1, BACKWARD, SINGLE);
-  }
-}*/
-
-//Calcul la position du robot (Odometrie)
-void calculPosition (int step_left, int step_right)
-{
-        left_encoder = step_left;
-        right_encoder = step_right;
-                
-        //Calcul des deplacements en millimetres
-        float dd = right_encoder * ENCODER_FACTOR;
-        float dg = left_encoder * ENCODER_FACTOR;
-                
-        //Calcul de l'angle theta
-        theta = (dd-dg)/TRACK ;
-                
-        //Calcul des vitesses angulaires
-        wg = left_encoder * 1.8 * RADIAN_PER_DEG;
-        wg = wg/3;
-        wd = right_encoder * 1.8 * RADIAN_PER_DEG;
-        wd = wd/3;
-                
-        //Calcul des composantes vitesses
-        xPrime = (WHEEL_DIAM/2) * ( (wd+wg)/2 * cos(theta) );
-        yPrime = (WHEEL_DIAM/2) * ( (wd+wg)/2 * sin(theta) );
-        
-        posX = posX + ( 3 * xPrime);
-        posY = posY + ( 3 * yPrime);
-        
-        //Affichage de la console
-        Console.println("Encodeur gauche: ");
-        Console.println("Encodeur droit: ");
-        Console.println(dd);
-        Console.println(dg);
-        Console.println(theta);
-        Console.println(wg);
-        Console.println(wd);
-        Console.println(xPrime);
-        Console.println(yPrime);
-        Console.println("Position :");
-        Console.println(posX);
-        Console.println(posY);
+  client.println("Status: 200");
+  client.println("Content-type: application/json");
+  client.println();
+  client.println(getMap());
 }
 
 void loop()
@@ -340,8 +295,8 @@ void executeUrlCommand(YunClient client)
 	      Console.print((long unsigned)readVcc);
 	}
 	else if (command=="getmap")
-	{
-	      client.print("getmap");
+	{ 
+              sendMap(&client);
 	}
 	else
 	{

@@ -14,7 +14,7 @@
 #include "utility/Adafruit_PWMServoDriver.h"
 
 
-#define DEFAULT_STEP_NUMBER		100
+#define DEFAULT_STEP_NUMBER	100
 #define INFRARED_SENSOR_INPUT	A0
 
 //Robot parameters
@@ -61,7 +61,7 @@ void motorInitialize()
 
 }
 
-
+// Return the value of the IR sensor, mean value from 10 samples in 100 ms
 int recordIR()
 {
   int cumulAnalogValue = 0;
@@ -77,15 +77,16 @@ int recordIR()
   }
   //Console.println("Mean value :");
   //Console.println(cumulAnalogValue/samples);
-  return((int)cumulAnalogValue/samples);
-   
+  return((int)cumulAnalogValue/samples);   
 }
 
+// Return the distance in cm read from the sensor
 float getDistance()
 {
   int valueSensor= recordIR();
   double distanceCM;
   distanceCM = 
+  // Polynomial regression calculated from the calibration
   pow(valueSensor, 6)*(2.76075/100000000000000) +
   pow(valueSensor, 5)*(-6.99111/100000000000) +
   pow(valueSensor, 4)*(7.15462/100000000) +
