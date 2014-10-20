@@ -114,6 +114,7 @@ void motorForward(int lenght_to_do)
 		motor2->step(2, FORWARD, SINGLE); 
 	}
 	motor1->step(1, FORWARD, SINGLE);
+        //Maj de la position
         calculPosition (steptodo,steptodo);
 }
 
@@ -127,6 +128,7 @@ void motorBackward(int lenght_to_do)
 		motor1->step(1, BACKWARD, SINGLE); 
 		motor2->step(1, BACKWARD, SINGLE); 
 	}
+        //Maj de la position
         calculPosition (-steptodo,-steptodo);
 }
 
@@ -138,6 +140,7 @@ void motorBackward()
 		motor1->step(1, BACKWARD, SINGLE); 
 		motor2->step(1, BACKWARD, SINGLE); 
 	}
+        //Maj de la position
         calculPosition (-DEFAULT_STEP_NUMBER,-DEFAULT_STEP_NUMBER);
 }
 
@@ -150,6 +153,7 @@ void calculPosition (int step_left, int step_right)
         float distance_wheel_right = (float) step_right * (float)WHEEL_PERIM /  (float)STEPMOTOR;
         float distance = (distance_wheel_left + distance_wheel_left)/2;
         
+        //Maj de la distance totale parcourue
         traveled_distance= traveled_distance + abs(distance)/10;
 
         //2 Conversion de l'angle theta en radian
@@ -188,7 +192,7 @@ void turnDegreeLeft(int degree_to_turn){
 		motor2->step(1, BACKWARD, SINGLE); 
 	}
         
-        //Enregistrement du theta
+        //Maj de l'orientation du robot
         theta = ((int)theta + degree_to_turn) % 360;
 }
 
@@ -202,7 +206,7 @@ void turnDegreeRight(int degree_to_turn){
 		motor2->step(1, FORWARD, SINGLE); 
 	}
         
-        //Enregistrement du theta
+        //Maj de l'orientation du robot
         theta = ((int)theta - degree_to_turn) % 360;
 
 }
