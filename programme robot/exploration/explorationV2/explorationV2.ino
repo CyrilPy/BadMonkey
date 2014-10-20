@@ -94,7 +94,7 @@ float getDistance()
   pow(valueSensor, 2)*0.011194502 +
   (valueSensor*(-1.807762943)) +
   146.981348;
-  return ((float)distanceCM);
+  return ((float)distanceCM*10);
 }
 
 //Marche avant
@@ -244,16 +244,9 @@ void turnDegreeRight(int degree_to_turn){
 }
  
  
-float distanceMin=90;
+float distanceMin=999999;
 float lastDistance=0;
 short int angleDistMin=0;
-void test()
-{
-       
-          turnDegreeLeft(50);
-          delay(50);
-
-}
 
 void parcoursMainGauche()
 {
@@ -277,7 +270,7 @@ void parcoursMainGauche()
 
         }
         turnDegreeLeft(angleDistMin);
-        etatParcours=3;
+        etatParcours=2;
         break;
         
         
@@ -285,7 +278,7 @@ void parcoursMainGauche()
       Console.println("cas 2, balayage");
         //verifier si l'on a bien le point le plus proche a +/-10°
         turnDegreeRight(10);
-        for(int angle=0;angle<20;angle++)
+        for(int angle=0;angle<10;angle++)
         {
           lastDistance= getDistance();
           if ( lastDistance < distanceMin)
@@ -305,9 +298,21 @@ void parcoursMainGauche()
       case 3:
       Console.println("cas 3, phase d'approche");
         //etat ou l'on avance tout droit jusqu'à être a 7cm du mur
-        lastDistance= getDistance();
-        if(lastDistance  >= 12)
-            motorForward(lastDistance-12);        
+        while(lastDistance >= 150 )
+        {
+          
+          
+          if(lastDistance > 150)
+            motorForward(lastDistance - 80);
+          else if(lastDistance > 70 && lastDistance < 150)
+            motorForward(lastDistance - 30);       
+          lastDistance = getDistance();
+                   
+      }
+       
+       
+         
+        //delay(100);      
         etatParcours=4;
         break;
         
@@ -315,16 +320,16 @@ void parcoursMainGauche()
        case 4:
        Console.println("cas 4, tourne a 90 droite");
          turnDegreeRight(90);
-         delay(100);
+        // delay(100);
          etatParcours = 5;
          break;
          
         case 5:
         Console.println("cas 5, mur en face entre 7 et 10 cm?");
           //regarder s'il y a un mur en face
-          lastDistance= getDistance();
+          lastDistance = getDistance();
           Console.println(lastDistance);
-          if((lastDistance > 7) && (lastDistance < 10))
+          if((lastDistance > 70) && (lastDistance < 100))
           {  
             //tournée à droite
             Console.println("oui");
@@ -344,15 +349,17 @@ void parcoursMainGauche()
        case 6:
        Console.println("cas 6, je tourne de 90 a gauche");
          turnDegreeLeft(90);
-         delay(100);
+         //delay(100);
          etatParcours = 5;
          break;
          
          //avancer de 2 cm
          case 7:
          Console.println("cas 7, j'avance");
-            motorForward(20);
-            delay(100);
+         Console.println("j'avance de ");
+         Console.println(lastDistance);
+            motorForward(170);
+           // delay(100);
             etatParcours = 6;
          break;
            
