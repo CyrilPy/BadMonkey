@@ -22,8 +22,12 @@ var context;
 /// @def TO_RADIANS		valeur du radian
 var TO_RADIANS = Math.PI/180;
 /// @def robot		image du robot
- var robot = new Image();
+var robot = new Image();
     robot.src = 'img/robotCanvas.png'; 
+/// @def x		abscisse	
+var xdot;
+/// @def y		ordonnées
+var ydot;
  
  
  
@@ -83,15 +87,29 @@ function JsonCoord( monJSON)
 		y=(monJSON[1][k][1][1]);
 		context.lineTo(x, y);
 	}
+	
+	context.stroke();//On trace seulement les lignes.
+	
+	for (var i in monJSON[2])
+	{	
+		context.beginPath();	
+		xdot=(monJSON[2][i][0]);
+		ydot=(monJSON[2][i][1]);
+		drawDot(xdot, ydot);
+		context.fill();
+		context.closePath();
+	}
+	
+	
 	/* coordonnées robots*/
 	robo=(monJSON[0][2]);
 	robx=(monJSON[0][0]);
 	roby=(monJSON[0][1]);
 	drawRotatedImage(robot, robx, roby, robo);
-	console.log(robo);
+	
 	/*dessins*/
-	context.stroke();//On trace seulement les lignes.
-	context.closePath();	
+	context.closePath();
+		
 } 
 
 
@@ -115,6 +133,16 @@ function drawRotatedImage(image, x, y, angle) {
 	context.drawImage(image, -(image.width/2), -(image.height/2)); 
 	// and restore the co-ords to how they were when we began
 	context.restore(); 
+}
+
+/// @fn function drawDot( x, y)
+/// @brief fonction qui dessine les points
+/// @param x ; variable des abscises
+/// @param y ; variables des ordonnées
+function drawDot( x, y){
+	context.fillStyle="#2c3e50"
+	context.arc(x,y,3,0,2*Math.PI);
+	
 }
 
 
