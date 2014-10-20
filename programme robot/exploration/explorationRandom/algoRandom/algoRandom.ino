@@ -34,14 +34,10 @@ Adafruit_StepperMotor * motor2 = AFMS.getStepper(200, 1);
 int counter;
 
 //Parametres pour l'odometrie
-int encoder_left_saved;
-int encoder_right_saved;
-int encoder_left;
-int encoder_right;
-
-float theta = 0;
-float posX =0;
-float posY =0;
+unsigned int  traveled_distance;  //Distance totale parcourue
+float theta = 0;      // Orientation du robot
+float posRob[2];      // Coordonées du robot
+float posObj [2];  // Coordoonées d'un obstacle
 
 int etatHttp;
 int etatParcours=2;
@@ -106,31 +102,31 @@ void motorForward()
 //Marche avant de X mm
 void motorForward(int lenght_to_do)
 {
-    int steptodo = (double)lenght_to_do / (double)WHEEL_PERIM * (double) 200;
-	//Console.println("motorForward");
-        //Console.println(steptodo);
+    int steptodo = (double)lenght_to_do / (double)WHEEL_PERIM * (double) 200 + 1;
+	Console.println("motorForward");
+        Console.println(steptodo);
         for (int i=0; i < steptodo ; i++)
 	{
 		motor1->step(1, FORWARD, SINGLE);
 		motor2->step(1, FORWARD, SINGLE); 
 	}
-        calculPosition (DEFAULT_STEP_NUMBER,DEFAULT_STEP_NUMBER);
+        calculPosition (steptodo,steptodo);
 }
 
 
 //Marche arriere de X mm
 void motorBackward(int lenght_to_do)
 {
-        int steptodo = (double)lenght_to_do / (double)WHEEL_PERIM * (double) 200;
+        int steptodo = (double)lenght_to_do / (double)WHEEL_PERIM * (double) 200 + 1;
 	for (int i=0; i < steptodo; i++)
 	{
 		motor1->step(1, BACKWARD, SINGLE); 
 		motor2->step(1, BACKWARD, SINGLE); 
 	}
-        calculPosition (-DEFAULT_STEP_NUMBER,-DEFAULT_STEP_NUMBER);
+        calculPosition (-steptodo,-steptodo);
 }
 
-//Marche arriere PAR DEFAUT
+//Marche arriere par DEFAUT
 void motorBackward()
 {       
 	for (int i=0; i < DEFAULT_STEP_NUMBER; i++)
@@ -144,64 +140,37 @@ void motorBackward()
 
 //Calcul la position du robot (Odometrie)
 void calculPosition (int step_left, int step_right)
-{       
-         
-        //Console.println("----------Calcul Position--------- ");
-        //Sauvegarde du compteur des roues
-        encoder_left_saved = encoder_left_saved + step_left;
-        encoder_right_saved = encoder_right_saved + step_right;
-        /*
-        Console.println("encoder_left_saved: ");
-        Console.println(encoder_left_saved);
-        Console.println("encoder_right_saved: ");
-        Console.println(encoder_right_saved);
-        */
+{        
         // 1 Calcul de la distance parcouru par chaque roue 
         float distance_wheel_left  =  (float) step_left * (float)WHEEL_PERIM / (float)STEPMOTOR;
         float distance_wheel_right = (float) step_right * (float)WHEEL_PERIM /  (float)STEPMOTOR;
         float distance = (distance_wheel_left + distance_wheel_left)/2;
-        /*
-        Console.println("distance_wheel_left: ");
-        Console.println(distance_wheel_left);
-        Console.println("distance_wheel_right: ");
-        Console.println(distance_wheel_right);
-        */ 
+        
+        traveled_distance= traveled_distance + abs(distance)/10;
+
         //2 Conversion de l'angle theta en radian
         float thetaRadian = theta * PI / 180;
-        /*
-        Console.println("thetaRadian: ");
-        Console.println(thetaRadian);
-        */ 
+        
         //3 Calcul de la position
         float yPrime = distance * cos(thetaRadian);
         float xPrime = distance * sin(thetaRadian);
-        /*
-        Console.println("yPrime: ");
-        Console.println(yPrime);
-        Console.println("xPrime: ");
-        Console.println(xPrime);
-        */
-        //Incrementation avec les positions précedentes
-        posY = posY + yPrime;
-        posX = posX + xPrime;
-        /*
-        Console.println("posY: ");
-        Console.println(posY);
-        Console.println("posX: ");
-        Console.println(posX);
-       */ 
+        
+        //4 Incrementation avec les positions précedentes
+        posRob[0] = posRob[0] + xPrime;
+        posRob[1] = posRob[1] + yPrime;
+        
+        
 }
+
 
 
 //Convertie des degres en step moteur
 int calcul_step_turn(int degree_to_turn){
+    
+    float x = ((float)degree_to_turn) /((float) 360);
+    float distance_for_turn = x * PI * (float) TRACK;
+    int step_to_turn = 1 + distance_for_turn * STEPMOTOR / WHEEL_PERIM;
 
-    float x = ((double)degree_to_turn) /((double) 360);
-    float distance_for_turn = x * PI * TRACK;
-    int step_to_turn = COEFF_CORRECTION + distance_for_turn * STEPMOTOR / WHEEL_PERIM;
-   
-    //Console.println("steptoturn:");
-    //Console.println(step_to_turn);
     return step_to_turn;
 }
 
@@ -216,9 +185,7 @@ void turnDegreeLeft(int degree_to_turn){
 	}
         
         //Enregistrement du theta
-        theta = theta + degree_to_turn;
-       // Console.println("thetha:");
-        //Console.println(theta);
+        theta = ((theta + degree_to_turn) % 360);
 }
 
 //Fonction tourne a droite de X degres
@@ -232,18 +199,30 @@ void turnDegreeRight(int degree_to_turn){
 	}
         
         //Enregistrement du theta
-        theta = theta - degree_to_turn;
-        /*Console.println("thetha:");
-        Console.println(theta);
-        */
+        theta = (theta - degree_to_turn) % 360;
+
 }
+
+
+//Fonction qui calcul la position d'un point d'un obstacle
+void localizePointObject (float irDetection){
+    
+     //1 Calcul de X, Y du point detecté par rapport au robot
+     float posObjX = irDetection * sin (theta);
+     float posObjY = irDetection * cos (theta);
+     
+     //2 Translation des coordonées par rapport au repère base
+     //Enregistrement dans le tableau
+     posObj [0] =  posRob[0] + posObjX;
+     posObj [1] =  posRob[1] + posObjY;
+    
+}
+
 
 void updateServer()
 {
   HttpClient client;
   Console.println("Envoie requête HTTP au serveur");
-  int posRob[2] = {52,12};
-  int posObj[2] = {23,78};
   //String url = "http://perso.imerir.com:80/jloeve/savePoint.php";
   String url = "http://172.31.1.123:80/savePoint.php?xr="+String((int)posRob[0], DEC)+"&yr="+String((int)posRob[1], DEC)+"&xm="+String((int)posObj[0], DEC)+"&ym="+String((int)posObj[1], DEC)+"&a="+String((int)theta, DEC);  
   Console.println(url);  
