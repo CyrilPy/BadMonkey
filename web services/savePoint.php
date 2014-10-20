@@ -33,7 +33,7 @@ echo $date;
         }
 		
 		$query="insert into carte (xMap,yMap,xRobot,yRobot,alphaRobot,time) 
-				values (:xRobot,:yRobot,:xMap,:yMap,:alpha,:time)";
+				values (:xMap,:yMap,:xRobot,:yRobot,:alpha,:time)";
 		$rs=$dbh->prepare($query);
 		$rs->bindParam(':xRobot',$xRobot);
 		$rs->bindParam(':yRobot',$yRobot);

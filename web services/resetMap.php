@@ -26,40 +26,16 @@ $dsn = "mysql:host=$hostname;dbname=$database";
             die( "Erreur ! : " . $e->getMessage() );
         }
 		
-		$query="select * from carte order by time desc";
+		$query="truncate carte";
 		$rs=$dbh->prepare($query);
-		$json =array();
-		$firstIteration = true;
+		
 		$rs->execute();
-		$row = $rs->fetchAll();
-		
-		$jsonObstacle = array(array(array(),array()));
-		
-		
-		foreach ($row as $tmp )
-		{
-			$xRobot = $tmp['xRobot'];
-			$yRobot = $tmp['yRobot']; 
-			$xMap   = $tmp['xMap'];
-			$yMap   = $tmp['yMap'];
-			$alpha  = $tmp['alphaRobot'];
-			$date   = $tmp['time'];
-			if($firstIteration)
-			{
-				$jsonRobot= array($xRobot,$yRobot,$alpha);
-				$firstIteration= false;
-			}
 
-			$jsonMapPoint[] = array($xMap,$yMap);
-
-		}
-
-		$json=array($jsonRobot,$jsonObstacle,$jsonMapPoint);
 		header('Access-Control-Allow-Origin: *');
 		header('Access-Control-Allow-Methods: GET');
 		header('Content-type: application/json');
 	header("HTTP/1.1 200 OK");	
-	echo (json_encode ($json));
+
 
 		
  

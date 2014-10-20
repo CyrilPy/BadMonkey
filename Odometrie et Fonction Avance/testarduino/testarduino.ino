@@ -1,6 +1,8 @@
 // Test of stepper motor on the Arduino Yun.
 // How to use it :
 // - open the Arduino serial console
+//Cette partie du code contient les différentes fonctions le calcul de l'odométrie et les déplacements
+
 
 #include <Wire.h>
 #include <Arduino.h>
@@ -13,10 +15,9 @@
 #define INFRARED_SENSOR_INPUT	A0
 
 //Robot parameters
-#define WHEEL_DIAM  69     // mm
-#define WHEEL_PERIM  218   // mm
-#define STEPMOTOR  200     // pas du moteur pour faire 360°
-#define RADIAN_PER_DEG  3.1415/180 
+#define WHEEL_DIAM  69     //en mm
+#define WHEEL_PERIM  218   //en mm
+#define STEPMOTOR  200     //pas du moteur pour faire 360°
 #define TRACK  123  // Entraxe entre le mileu des roues
 #define ENCODER_FACTOR  WHEEL_PERIM/200 
 #define COEFF_CORRECTION 3 //Coefficient correcteur pour le frottement
@@ -31,11 +32,9 @@ int counter;
 //Parametres pour l'odometrie
 unsigned int  traveled_distance;  //Distance totale parcourue
 float theta = 0;      // Orientation du robot
-float tabRob[2];      // Coordonées du robot
-float tabObjPos [2];  // Coordoonées d'un obstacle
+float posRob[2];      // Coordonées du robot
+float posObj [2];     // Coordoonées d'un obstacle
 
-
- 
 
 //Initialisation des moteurs
 void motorInitialize()
@@ -66,8 +65,6 @@ void motorForward()
 void motorForward(int lenght_to_do)
 {
     int steptodo = (double)lenght_to_do / (double)WHEEL_PERIM * (double) 200 + 1;
-	Console.println("motorForward");
-        Console.println(steptodo);
         for (int i=0; i < steptodo ; i++)
 	{
 		motor1->step(1, FORWARD, SINGLE);
@@ -75,7 +72,6 @@ void motorForward(int lenght_to_do)
 	}
         calculPosition (steptodo,steptodo);
 }
-
 
 //Marche arriere de X mm
 void motorBackward(int lenght_to_do)
@@ -86,6 +82,7 @@ void motorBackward(int lenght_to_do)
 		motor1->step(1, BACKWARD, SINGLE); 
 		motor2->step(1, BACKWARD, SINGLE); 
 	}
+        //Maj de l'odométrie
         calculPosition (-steptodo,-steptodo);
 }
 
@@ -97,9 +94,9 @@ void motorBackward()
 		motor1->step(1, BACKWARD, SINGLE); 
 		motor2->step(1, BACKWARD, SINGLE); 
 	}
+        //Maj de l'odometre
         calculPosition (-DEFAULT_STEP_NUMBER,-DEFAULT_STEP_NUMBER);
 }
-
 
 //Calcul la position du robot (Odometrie)
 void calculPosition (int step_left, int step_right)
@@ -109,6 +106,7 @@ void calculPosition (int step_left, int step_right)
         float distance_wheel_right = (float) step_right * (float)WHEEL_PERIM /  (float)STEPMOTOR;
         float distance = (distance_wheel_left + distance_wheel_left)/2;
         
+        //Update de la distance totale parcourue
         traveled_distance= traveled_distance + abs(distance)/10;
 
         //2 Conversion de l'angle theta en radian
@@ -120,12 +118,8 @@ void calculPosition (int step_left, int step_right)
         
         //4 Incrementation avec les positions précedentes
         posRob[0] = posRob[0] + xPrime;
-        posRob[1] = posRob[1] + yPrime;
-        
-        
+        posRob[1] = posRob[1] + yPrime;     
 }
-
-
 
 //Convertie des degres en step moteur
 int calcul_step_turn(int degree_to_turn){
@@ -147,8 +141,8 @@ void turnDegreeLeft(int degree_to_turn){
 		motor2->step(1, BACKWARD, SINGLE); 
 	}
         
-        //Enregistrement du theta
-        theta = (theta + degree_to_turn) % 360;
+        //Maj de l'orientation du robot
+        theta = ((int)theta + degree_to_turn) % 360;
 }
 
 //Fonction tourne a droite de X degres
@@ -160,10 +154,8 @@ void turnDegreeRight(int degree_to_turn){
 		motor1->step(1, BACKWARD, SINGLE); 
 		motor2->step(1, FORWARD, SINGLE); 
 	}
-        
-        //Enregistrement du theta
-        theta = (theta - degree_to_turn) % 360;
-
+        //Maj de l'orientation du robot
+        theta = ((int)theta - degree_to_turn) % 360;
 }
 
 
@@ -215,24 +207,16 @@ float recordIR()
    
 }
 
-
-
 void setup()
 {
 	Bridge.begin();
   	Console.begin();
-
-//	while (!Console)
-//  	{
-//  		// wait Arduino Console connection.
-//  	}
-
-	Console.println("Test of Stepper Motor !");
+	
+        Console.println("Test of Stepper Motor !");
 
 	motorInitialize();
 
 	pinMode(INFRARED_SENSOR_INPUT, INPUT);
-
 }
 
 void loop()
@@ -308,8 +292,7 @@ void loop()
 		counter++;
 
 		motorForward();
-                
-
+              
 		Console.println("I'm alive !");
 
 		if (counter==50)
