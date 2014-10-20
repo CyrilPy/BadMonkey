@@ -262,7 +262,7 @@ void parcoursMainGauche()
     {
       case 1:
       Console.println("cas 1, avance");  
-        if(lastDistance < 200)
+        if(lastDistance < 20)
           {   
             etatParcours=4;
           }else{
@@ -270,11 +270,7 @@ void parcoursMainGauche()
             motorForward(distAvance);
             etatParcours=2;
           }
-          
-          
-        
         break;
-        
         
      case 2:
       Console.println("cas 2, Mur ou pas");
@@ -297,8 +293,7 @@ void parcoursMainGauche()
           break;
       case 3:
       Console.println("cas 3, Tourne Random");
-            
-            turnDegreeRight(random(1,180));
+        turnDegreeRight(random(1,180));
         etatParcours=2;
         break;
           
@@ -306,7 +301,7 @@ void parcoursMainGauche()
           Console.println("cas 2, balayage");
         //verifier si l'on a bien le point le plus proche a +/-10°
         turnDegreeRight(10);
-        etatParcours=1;
+        etatParcours=2;
         for(int angle=0;angle<20;angle++)
         {
           lastDistance= getDistance();
@@ -314,13 +309,10 @@ void parcoursMainGauche()
           {
             etatParcours=3;
             break;
-          
           }
-          turnDegreeLeft(2);
-
+            turnDegreeLeft(2);
         }
-
-      break;  
+        break;  
     }
 }
 
