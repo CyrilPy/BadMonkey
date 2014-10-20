@@ -31,8 +31,8 @@ int counter;
 //Parametres pour l'odometrie
 unsigned int  traveled_distance;  //Distance totale parcourue
 float theta = 0;      // Orientation du robot
-float tabRob[2];      // Coordonées du robot
-float tabObjPos [2];  // Coordoonées d'un obstacle
+float posRob[2];      // Coordonées du robot
+float posObj [2];  // Coordoonées d'un obstacle
 
 
  
