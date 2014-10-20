@@ -13,10 +13,9 @@
 #define INFRARED_SENSOR_INPUT	A0
 
 //Robot parameters
-#define WHEEL_DIAM  69     // mm
-#define WHEEL_PERIM  218   // mm
-#define STEPMOTOR  200     // pas du moteur pour faire 360°
-#define RADIAN_PER_DEG  3.1415/180 
+#define WHEEL_DIAM  69     //en mm
+#define WHEEL_PERIM  218   //en mm
+#define STEPMOTOR  200     //pas du moteur pour faire 360°
 #define TRACK  123  // Entraxe entre le mileu des roues
 #define ENCODER_FACTOR  WHEEL_PERIM/200 
 #define COEFF_CORRECTION 3 //Coefficient correcteur pour le frottement
@@ -109,6 +108,7 @@ void calculPosition (int step_left, int step_right)
         float distance_wheel_right = (float) step_right * (float)WHEEL_PERIM /  (float)STEPMOTOR;
         float distance = (distance_wheel_left + distance_wheel_left)/2;
         
+        //Update de la distance totale parcourue
         traveled_distance= traveled_distance + abs(distance)/10;
 
         //2 Conversion de l'angle theta en radian
@@ -120,9 +120,7 @@ void calculPosition (int step_left, int step_right)
         
         //4 Incrementation avec les positions précedentes
         posRob[0] = posRob[0] + xPrime;
-        posRob[1] = posRob[1] + yPrime;
-        
-        
+        posRob[1] = posRob[1] + yPrime;     
 }
 
 
@@ -148,7 +146,7 @@ void turnDegreeLeft(int degree_to_turn){
 	}
         
         //Enregistrement du theta
-        theta = (theta + degree_to_turn) % 360;
+        theta = ((int)theta + degree_to_turn) % 360;
 }
 
 //Fonction tourne a droite de X degres
@@ -161,8 +159,8 @@ void turnDegreeRight(int degree_to_turn){
 		motor2->step(1, FORWARD, SINGLE); 
 	}
         
-        //Enregistrement du theta
-        theta = (theta - degree_to_turn) % 360;
+        //Enregistrement du theta 
+        theta = ((int)theta - degree_to_turn) % 360;
 
 }
 
