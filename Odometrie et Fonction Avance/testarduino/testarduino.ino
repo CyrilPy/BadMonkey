@@ -1,6 +1,8 @@
 // Test of stepper motor on the Arduino Yun.
 // How to use it :
 // - open the Arduino serial console
+//Cette partie du code contient les différentes fonctions le calcul de l'odométrie et les déplacements
+
 
 #include <Wire.h>
 #include <Arduino.h>
@@ -31,10 +33,8 @@ int counter;
 unsigned int  traveled_distance;  //Distance totale parcourue
 float theta = 0;      // Orientation du robot
 float posRob[2];      // Coordonées du robot
-float posObj [2];  // Coordoonées d'un obstacle
+float posObj [2];     // Coordoonées d'un obstacle
 
-
- 
 
 //Initialisation des moteurs
 void motorInitialize()
@@ -65,8 +65,6 @@ void motorForward()
 void motorForward(int lenght_to_do)
 {
     int steptodo = (double)lenght_to_do / (double)WHEEL_PERIM * (double) 200 + 1;
-	Console.println("motorForward");
-        Console.println(steptodo);
         for (int i=0; i < steptodo ; i++)
 	{
 		motor1->step(1, FORWARD, SINGLE);
@@ -74,7 +72,6 @@ void motorForward(int lenght_to_do)
 	}
         calculPosition (steptodo,steptodo);
 }
-
 
 //Marche arriere de X mm
 void motorBackward(int lenght_to_do)
@@ -85,6 +82,7 @@ void motorBackward(int lenght_to_do)
 		motor1->step(1, BACKWARD, SINGLE); 
 		motor2->step(1, BACKWARD, SINGLE); 
 	}
+        //Maj de l'odométrie
         calculPosition (-steptodo,-steptodo);
 }
 
@@ -96,9 +94,9 @@ void motorBackward()
 		motor1->step(1, BACKWARD, SINGLE); 
 		motor2->step(1, BACKWARD, SINGLE); 
 	}
+        //Maj de l'odometre
         calculPosition (-DEFAULT_STEP_NUMBER,-DEFAULT_STEP_NUMBER);
 }
-
 
 //Calcul la position du robot (Odometrie)
 void calculPosition (int step_left, int step_right)
@@ -123,8 +121,6 @@ void calculPosition (int step_left, int step_right)
         posRob[1] = posRob[1] + yPrime;     
 }
 
-
-
 //Convertie des degres en step moteur
 int calcul_step_turn(int degree_to_turn){
     
@@ -145,7 +141,7 @@ void turnDegreeLeft(int degree_to_turn){
 		motor2->step(1, BACKWARD, SINGLE); 
 	}
         
-        //Enregistrement du theta
+        //Maj de l'orientation du robot
         theta = ((int)theta + degree_to_turn) % 360;
 }
 
@@ -158,10 +154,8 @@ void turnDegreeRight(int degree_to_turn){
 		motor1->step(1, BACKWARD, SINGLE); 
 		motor2->step(1, FORWARD, SINGLE); 
 	}
-        
-        //Enregistrement du theta 
+        //Maj de l'orientation du robot
         theta = ((int)theta - degree_to_turn) % 360;
-
 }
 
 
@@ -213,24 +207,16 @@ float recordIR()
    
 }
 
-
-
 void setup()
 {
 	Bridge.begin();
   	Console.begin();
-
-//	while (!Console)
-//  	{
-//  		// wait Arduino Console connection.
-//  	}
-
-	Console.println("Test of Stepper Motor !");
+	
+        Console.println("Test of Stepper Motor !");
 
 	motorInitialize();
 
 	pinMode(INFRARED_SENSOR_INPUT, INPUT);
-
 }
 
 void loop()
@@ -306,8 +292,7 @@ void loop()
 		counter++;
 
 		motorForward();
-                
-
+              
 		Console.println("I'm alive !");
 
 		if (counter==50)
