@@ -16,7 +16,7 @@
 #define DEFAULT_STEP_NUMBER		100
 #define INFRARED_SENSOR_INPUT	A0
 
-#define SCAN_ANGLE 	30
+#define SCAN_ANGLE 	40
 
 //Robot parameters
 #define WHEEL_DIAM  69 // mm
@@ -244,10 +244,10 @@ void updateServer()
   Console.println("Envoie requête HTTP au serveur");
   int posRob[2] = {52,12};
   int posObj[2] = {23,78};
-  client.get("http://perso.imerir.com/jloeve/savePoint.php");
-  //String url = "perso.imerir.com:80/mdacosta/badmonkeys/savePoint.php?xr="+String((int)posRob[0], DEC)+"&yr="+String((int)posRob[1], DEC)+"&xm="+String((int)posObj[0], DEC)+"&ym="+String((int)posObj[1], DEC)+"&a="+String((int)theta, DEC);  
-  Console.println("http://arduino.cc:80/asciilogo.txt");  
-  //client.get(url);
+  //String url = "http://perso.imerir.com:80/jloeve/savePoint.php";
+  String url = "http://172.31.1.123:80/savePoint.php?xr="+String((int)posRob[0], DEC)+"&yr="+String((int)posRob[1], DEC)+"&xm="+String((int)posObj[0], DEC)+"&ym="+String((int)posObj[1], DEC)+"&a="+String((int)theta, DEC);  
+  Console.println(url);  
+  client.get(url);
   while (client.available()){
     char c = client.read();
     Console.print(c);
