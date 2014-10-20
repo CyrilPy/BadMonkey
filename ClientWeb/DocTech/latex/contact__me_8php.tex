@@ -1,0 +1,91 @@
+\hypertarget{contact__me_8php}{\section{mail/contact\+\_\+me.php File Reference}
+\label{contact__me_8php}\index{mail/contact\+\_\+me.\+php@{mail/contact\+\_\+me.\+php}}
+}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classie_8js_a55bf8e12339412d59e0a999214324127}{if}(empty(\$\+\_\+\+P\+O\+S\+T\mbox{[}'name'\mbox{]})$\vert$$\vert$empty(\$\+\_\+\+P\+O\+S\+T\mbox{[}'email'\mbox{]})$\vert$$\vert$empty(\$\+\_\+\+P\+O\+S\+T\mbox{[}'phone'\mbox{]})$\vert$$\vert$empty(\$\+\_\+\+P\+O\+S\+T\mbox{[}'message'\mbox{]})$\vert$$\vert$!filter\+\_\+var(\$\+\_\+\+P\+O\+S\+T\mbox{[}'email'\mbox{]}, \\*
+F\+I\+L\+T\+E\+R\+\_\+\+V\+A\+L\+I\+D\+A\+T\+E\+\_\+\+E\+M\+A\+I\+L)) \hyperlink{contact__me_8php_a278961b02c1c2852ff166f23bc231ea4}{\$name} = \$\+\_\+\+P\+O\+S\+T\mbox{[}'name'\mbox{]}
+\item 
+\hyperlink{contact__me_8php_a773bb6f6146878ed0ff7059eda635549}{\$email\+\_\+address} = \$\+\_\+\+P\+O\+S\+T\mbox{[}'email'\mbox{]}
+\item 
+\hyperlink{contact__me_8php_afca642079313f7c6c3f8d4368f779882}{\$phone} = \$\+\_\+\+P\+O\+S\+T\mbox{[}'phone'\mbox{]}
+\item 
+\hyperlink{contact__me_8php_abf17cb2dba2ed17cb28aa5f37deb5293}{\$message} = \$\+\_\+\+P\+O\+S\+T\mbox{[}'message'\mbox{]}
+\item 
+\hyperlink{contact__me_8php_ac19f839b525d6d99d063fe56bf2a6d3b}{\$to} = 'yourname@yourdomain.\+com'
+\item 
+\hyperlink{contact__me_8php_a8b423a7af7e669b288eacca16f0aab0b}{\$email\+\_\+subject} = \char`\"{}Website Contact Form\+: \$name\char`\"{}
+\item 
+\hyperlink{contact__me_8php_ae8d78bb1129ef7c43c7d9aebc4fa3ad8}{\$email\+\_\+body} = \char`\"{}You have received \hyperlink{bootstrap_8min_8js_a1f5870dcf487187f13d5fd328ed9e6e7}{a} new message from your website contact form.\textbackslash{}n\textbackslash{}n\char`\"{}.\char`\"{}Here are the details\+:\textbackslash{}n\textbackslash{}n\+Name\+: \$name\textbackslash{}n\textbackslash{}n\+Email\+: \$email\+\_\+address\textbackslash{}n\textbackslash{}n\+Phone\+: \$phone\textbackslash{}n\textbackslash{}n\+Message\+:\textbackslash{}n\$message\char`\"{}
+\item 
+\hyperlink{contact__me_8php_a52500036ee807241b8b4b7e2367c49ef}{\$headers} = \char`\"{}From\+: noreply@yourdomain.\+com\textbackslash{}n\char`\"{}
+\item 
+return \hyperlink{contact__me_8php_a930920b2bc42824a5c03be681830f4b2}{true}
+\end{DoxyCompactItemize}
+
+
+\subsection{Variable Documentation}
+\hypertarget{contact__me_8php_a773bb6f6146878ed0ff7059eda635549}{\index{contact\+\_\+me.\+php@{contact\+\_\+me.\+php}!\$email\+\_\+address@{\$email\+\_\+address}}
+\index{\$email\+\_\+address@{\$email\+\_\+address}!contact\+\_\+me.\+php@{contact\+\_\+me.\+php}}
+\subsubsection[{\$email\+\_\+address}]{\setlength{\rightskip}{0pt plus 5cm}\$email\+\_\+address = \$\+\_\+\+P\+O\+S\+T\mbox{[}'email'\mbox{]}}}\label{contact__me_8php_a773bb6f6146878ed0ff7059eda635549}
+
+
+Definition at line 14 of file contact\+\_\+me.\+php.
+
+\hypertarget{contact__me_8php_ae8d78bb1129ef7c43c7d9aebc4fa3ad8}{\index{contact\+\_\+me.\+php@{contact\+\_\+me.\+php}!\$email\+\_\+body@{\$email\+\_\+body}}
+\index{\$email\+\_\+body@{\$email\+\_\+body}!contact\+\_\+me.\+php@{contact\+\_\+me.\+php}}
+\subsubsection[{\$email\+\_\+body}]{\setlength{\rightskip}{0pt plus 5cm}\$email\+\_\+body = \char`\"{}You have received {\bf a} new message from your website contact form.\textbackslash{}n\textbackslash{}n\char`\"{}.\char`\"{}Here are the details\+:\textbackslash{}n\textbackslash{}n\+Name\+: \$name\textbackslash{}n\textbackslash{}n\+Email\+: \$email\+\_\+address\textbackslash{}n\textbackslash{}n\+Phone\+: \$phone\textbackslash{}n\textbackslash{}n\+Message\+:\textbackslash{}n\$message\char`\"{}}}\label{contact__me_8php_ae8d78bb1129ef7c43c7d9aebc4fa3ad8}
+
+
+Definition at line 21 of file contact\+\_\+me.\+php.
+
+\hypertarget{contact__me_8php_a8b423a7af7e669b288eacca16f0aab0b}{\index{contact\+\_\+me.\+php@{contact\+\_\+me.\+php}!\$email\+\_\+subject@{\$email\+\_\+subject}}
+\index{\$email\+\_\+subject@{\$email\+\_\+subject}!contact\+\_\+me.\+php@{contact\+\_\+me.\+php}}
+\subsubsection[{\$email\+\_\+subject}]{\setlength{\rightskip}{0pt plus 5cm}\$email\+\_\+subject = \char`\"{}Website Contact Form\+: \$name\char`\"{}}}\label{contact__me_8php_a8b423a7af7e669b288eacca16f0aab0b}
+
+
+Definition at line 20 of file contact\+\_\+me.\+php.
+
+\hypertarget{contact__me_8php_a52500036ee807241b8b4b7e2367c49ef}{\index{contact\+\_\+me.\+php@{contact\+\_\+me.\+php}!\$headers@{\$headers}}
+\index{\$headers@{\$headers}!contact\+\_\+me.\+php@{contact\+\_\+me.\+php}}
+\subsubsection[{\$headers}]{\setlength{\rightskip}{0pt plus 5cm}\$headers = \char`\"{}From\+: noreply@yourdomain.\+com\textbackslash{}n\char`\"{}}}\label{contact__me_8php_a52500036ee807241b8b4b7e2367c49ef}
+
+
+Definition at line 22 of file contact\+\_\+me.\+php.
+
+\hypertarget{contact__me_8php_abf17cb2dba2ed17cb28aa5f37deb5293}{\index{contact\+\_\+me.\+php@{contact\+\_\+me.\+php}!\$message@{\$message}}
+\index{\$message@{\$message}!contact\+\_\+me.\+php@{contact\+\_\+me.\+php}}
+\subsubsection[{\$message}]{\setlength{\rightskip}{0pt plus 5cm}\$message = \$\+\_\+\+P\+O\+S\+T\mbox{[}'message'\mbox{]}}}\label{contact__me_8php_abf17cb2dba2ed17cb28aa5f37deb5293}
+
+
+Definition at line 16 of file contact\+\_\+me.\+php.
+
+\hypertarget{contact__me_8php_a278961b02c1c2852ff166f23bc231ea4}{\index{contact\+\_\+me.\+php@{contact\+\_\+me.\+php}!\$name@{\$name}}
+\index{\$name@{\$name}!contact\+\_\+me.\+php@{contact\+\_\+me.\+php}}
+\subsubsection[{\$name}]{\setlength{\rightskip}{0pt plus 5cm}{\bf if} (empty(\$\+\_\+\+P\+O\+S\+T\mbox{[}'name'\mbox{]})$\vert$$\vert$empty(\$\+\_\+\+P\+O\+S\+T\mbox{[}'email'\mbox{]})$\vert$$\vert$empty(\$\+\_\+\+P\+O\+S\+T\mbox{[}'phone'\mbox{]})$\vert$$\vert$empty(\$\+\_\+\+P\+O\+S\+T\mbox{[}'message'\mbox{]})$\vert$$\vert$!filter\+\_\+var(\$\+\_\+\+P\+O\+S\+T\mbox{[}'email'\mbox{]}, F\+I\+L\+T\+E\+R\+\_\+\+V\+A\+L\+I\+D\+A\+T\+E\+\_\+\+E\+M\+A\+I\+L)) \$name = \$\+\_\+\+P\+O\+S\+T\mbox{[}'name'\mbox{]}}}\label{contact__me_8php_a278961b02c1c2852ff166f23bc231ea4}
+
+
+Definition at line 13 of file contact\+\_\+me.\+php.
+
+\hypertarget{contact__me_8php_afca642079313f7c6c3f8d4368f779882}{\index{contact\+\_\+me.\+php@{contact\+\_\+me.\+php}!\$phone@{\$phone}}
+\index{\$phone@{\$phone}!contact\+\_\+me.\+php@{contact\+\_\+me.\+php}}
+\subsubsection[{\$phone}]{\setlength{\rightskip}{0pt plus 5cm}\$phone = \$\+\_\+\+P\+O\+S\+T\mbox{[}'phone'\mbox{]}}}\label{contact__me_8php_afca642079313f7c6c3f8d4368f779882}
+
+
+Definition at line 15 of file contact\+\_\+me.\+php.
+
+\hypertarget{contact__me_8php_ac19f839b525d6d99d063fe56bf2a6d3b}{\index{contact\+\_\+me.\+php@{contact\+\_\+me.\+php}!\$to@{\$to}}
+\index{\$to@{\$to}!contact\+\_\+me.\+php@{contact\+\_\+me.\+php}}
+\subsubsection[{\$to}]{\setlength{\rightskip}{0pt plus 5cm}\$to = 'yourname@yourdomain.\+com'}}\label{contact__me_8php_ac19f839b525d6d99d063fe56bf2a6d3b}
+
+
+Definition at line 19 of file contact\+\_\+me.\+php.
+
+\hypertarget{contact__me_8php_a930920b2bc42824a5c03be681830f4b2}{\index{contact\+\_\+me.\+php@{contact\+\_\+me.\+php}!true@{true}}
+\index{true@{true}!contact\+\_\+me.\+php@{contact\+\_\+me.\+php}}
+\subsubsection[{true}]{\setlength{\rightskip}{0pt plus 5cm}return true}}\label{contact__me_8php_a930920b2bc42824a5c03be681830f4b2}
+
+
+Definition at line 25 of file contact\+\_\+me.\+php.
+

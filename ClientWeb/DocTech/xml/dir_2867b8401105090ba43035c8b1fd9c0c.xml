@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.8">
+  <compounddef id="dir_2867b8401105090ba43035c8b1fd9c0c" kind="dir">
+    <compoundname>js</compoundname>
+    <innerfile refid="bootstrap_8js">bootstrap.js</innerfile>
+    <innerfile refid="bootstrap_8min_8js">bootstrap.min.js</innerfile>
+    <innerfile refid="cbp_animated_header_8js">cbpAnimatedHeader.js</innerfile>
+    <innerfile refid="cbp_animated_header_8min_8js">cbpAnimatedHeader.min.js</innerfile>
+    <innerfile refid="classie_8js">classie.js</innerfile>
+    <innerfile refid="freelancer_8js">freelancer.js</innerfile>
+    <innerfile refid="jquery-1_811_80_8js">jquery-1.11.0.js</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/Justine/Documents/BadMonkey/ClientWeb/js/"/>
+  </compounddef>
+</doxygen>

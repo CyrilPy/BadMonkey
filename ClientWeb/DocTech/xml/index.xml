@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.8">
+  <compound refid="index_8html" kind="file"><name>index.html</name>
+  </compound>
+  <compound refid="bootstrap_8js" kind="file"><name>bootstrap.js</name>
+    <member refid="bootstrap_8js_1a2eb5ccc0cd870ff2cc5ce9b8d53cec48" kind="variable"><name>emulateTransitionEnd</name></member>
+    <member refid="bootstrap_8js_1a5a23b6797090169c0f80e3372ca76a4d" kind="variable"><name>dismiss</name></member>
+    <member refid="bootstrap_8js_1a261c5f999cc82b4ce70e4914330a1ef6" kind="variable"><name>Button</name></member>
+    <member refid="bootstrap_8js_1a423054031c78e782a9ea7433185ebafe" kind="variable"><name>Carousel</name></member>
+    <member refid="bootstrap_8js_1a702a68ef70b72eabdbdce3fc9ad195d4" kind="variable"><name>Collapse</name></member>
+    <member refid="bootstrap_8js_1aba65c57a7d9ee9d45d314e2bba7dd072" kind="variable"><name>backdrop</name></member>
+    <member refid="bootstrap_8js_1ae7e92ba98a0a00bcf27095cd53bb66c8" kind="function"><name>if</name></member>
+    <member refid="bootstrap_8js_1a1f869ec6b1fa9940961fb14a72d20473" kind="function"><name>transitionEnd</name></member>
+  </compound>
+  <compound refid="bootstrap_8min_8js" kind="file"><name>bootstrap.min.js</name>
+    <member refid="bootstrap_8min_8js_1ae8f6b400ed3390908c5cdeebed3a82b9" kind="variable"><name>a</name></member>
+    <member refid="bootstrap_8min_8js_1a006fe6a2a254572b367123c6db401ff3" kind="variable"><name>emulateTransitionEnd</name></member>
+    <member refid="bootstrap_8min_8js_1ad9d1ac02e33c4aed62ad517a7cb8b3fb" kind="variable"><name>c</name></member>
+    <member refid="bootstrap_8min_8js_1aeb337d295abaddb5ec3cb34cc2e2bbc9" kind="variable"><name>d</name></member>
+    <member refid="bootstrap_8min_8js_1a3635f2df5844f69204b70bf7b3983587" kind="variable"><name>VERSION</name></member>
+    <member refid="bootstrap_8min_8js_1ad2012c0e32f007c181f3f0b954bbc786" kind="variable"><name>close</name></member>
+    <member refid="bootstrap_8min_8js_1ab5902775854a8b8440bcd25e0fe1c120" kind="variable"><name>e</name></member>
+    <member refid="bootstrap_8min_8js_1aaa41eef066735d697e7786ec86d52389" kind="variable"><name>alert</name></member>
+    <member refid="bootstrap_8min_8js_1a0545907c609a48549a0cf5d4c692f851" kind="variable"><name>Constructor</name></member>
+    <member refid="bootstrap_8min_8js_1ac26971afe341e4079ee34fceab395fc2" kind="variable"><name>noConflict</name></member>
+    <member refid="bootstrap_8min_8js_1a6c1cf0be5e5383617ddc5efdfdc8c651" kind="variable"><name>DEFAULTS</name></member>
+    <member refid="bootstrap_8min_8js_1a14f119ea3b5abc5536d590dfe1793c6e" kind="variable"><name>setState</name></member>
+    <member refid="bootstrap_8min_8js_1aa8e797a9bda5e7e313be3518054164a3" kind="variable"><name>toggle</name></member>
+    <member refid="bootstrap_8min_8js_1a55e170814e74f6c3db8ae9ea3ba9054f" kind="variable"><name>button</name></member>
+    <member refid="bootstrap_8min_8js_1ac2d69f5011896c6ed4a54e0dd36f6334" kind="function"><name>if</name></member>
+    <member refid="bootstrap_8min_8js_1a7c192e47b11481e4717b9f1e04eb4420" kind="function"><name>b</name></member>
+    <member refid="bootstrap_8min_8js_1a1f5870dcf487187f13d5fd328ed9e6e7" kind="function"><name>a</name></member>
+    <member refid="bootstrap_8min_8js_1a398bb8542498d1b14178b02b99df309b" kind="function"><name>b</name></member>
+    <member refid="bootstrap_8min_8js_1afaca3a961d693f40135a872e93e71198" kind="function"><name>close</name></member>
+    <member refid="bootstrap_8min_8js_1afa9eb56c756985e9715e3820fd044aa3" kind="function"><name>hasClass</name></member>
+  </compound>
+  <compound refid="cbp_animated_header_8js" kind="file"><name>cbpAnimatedHeader.js</name>
+    <member refid="cbp_animated_header_8js_1a9e540f2477382fc6aadd811c70ebc04e" kind="variable"><name>cbpAnimatedHeader</name></member>
+  </compound>
+  <compound refid="cbp_animated_header_8min_8js" kind="file"><name>cbpAnimatedHeader.min.js</name>
+    <member refid="cbp_animated_header_8min_8js_1a9e540f2477382fc6aadd811c70ebc04e" kind="variable"><name>cbpAnimatedHeader</name></member>
+  </compound>
+  <compound refid="classie_8js" kind="file"><name>classie.js</name>
+    <member refid="classie_8js_1a04a8a2bbfa9c15500892b8e5033d625b" kind="variable"><name>window</name></member>
+    <member refid="classie_8js_1a8e132f04879bc2239b3b1da18cc847cf" kind="variable"><name>hasClass</name></member>
+    <member refid="classie_8js_1a57e5cb8badec875cafcb2999c25e197f" kind="variable"><name>addClass</name></member>
+    <member refid="classie_8js_1a09a362292f94c3c9d5087472c4d4b17b" kind="variable"><name>removeClass</name></member>
+    <member refid="classie_8js_1a0544c3fe466e421738dae463968b70ba" kind="variable"><name>else</name></member>
+    <member refid="classie_8js_1a9f4b9e75c56fc85f19bc8489be3499d7" kind="variable"><name>classie</name></member>
+    <member refid="classie_8js_1aa96fedc5c8bebbc1f0e20bc4856fbe1e" kind="function"><name>classReg</name></member>
+    <member refid="classie_8js_1aa80c7710e5c88bd2e80211728d8b326d" kind="function"><name>if</name></member>
+    <member refid="classie_8js_1a1cd44c289bf8fbb4f0acb2ed5f44bc63" kind="function"><name>toggleClass</name></member>
+    <member refid="classie_8js_1a55bf8e12339412d59e0a999214324127" kind="function"><name>if</name></member>
+  </compound>
+  <compound refid="freelancer_8js" kind="file"><name>freelancer.js</name>
+    <member refid="freelancer_8js_1a81e910173af87b1161e719a504d52407" kind="variable"><name>x</name></member>
+    <member refid="freelancer_8js_1a0b31909b1cae9ed1db6ff042057fce60" kind="variable"><name>y</name></member>
+    <member refid="freelancer_8js_1aa7a6f462fc14be1a4c709e9d327c8985" kind="variable"><name>robx</name></member>
+    <member refid="freelancer_8js_1ab116c4dc0446b570b1f7c925a060280f" kind="variable"><name>roby</name></member>
+    <member refid="freelancer_8js_1aaf8f4c72b9543fbad98f24036862ff78" kind="variable"><name>tobo</name></member>
+    <member refid="freelancer_8js_1a1c82fafbefefac03f47e6f1a3cad5b73" kind="variable"><name>canvas</name></member>
+    <member refid="freelancer_8js_1a052064742b5acc950df6b3c78d4ecd65" kind="variable"><name>context</name></member>
+    <member refid="freelancer_8js_1a61afb2bd6a7b85d756f3cba6ee06f1d5" kind="variable"><name>TO_RADIANS</name></member>
+    <member refid="freelancer_8js_1a29dbca0953a01da96946d81a4132515f" kind="variable"><name>robot</name></member>
+    <member refid="freelancer_8js_1aa3a1e554f50ad2123cb50f29f98b8756" kind="variable"><name>src</name></member>
+    <member refid="freelancer_8js_1a43397fd3516cd230995b3edbbadff48b" kind="variable"><name>onload</name></member>
+    <member refid="freelancer_8js_1ab14f9171371f62be4608540935252a7e" kind="function"><name>scrollspy</name></member>
+  </compound>
+  <compound refid="jquery-1_811_80_8js" kind="file"><name>jquery-1.11.0.js</name>
+    <member refid="jquery-1_811_80_8js_1ae21cc36bf0d65014c717a481a3f8a468" kind="variable"><name>undefined</name></member>
+    <member refid="jquery-1_811_80_8js_1aa4d4888597588a84fd5b1184d00c91f3" kind="variable"><name>a</name></member>
+    <member refid="jquery-1_811_80_8js_1ac0431efac4d7c393d1e70b86115cb93f" kind="variable"><name>b</name></member>
+    <member refid="jquery-1_811_80_8js_1a4f0af84f62a6e2f4aee1d072192b48ec" kind="variable"><name>fn</name></member>
+    <member refid="jquery-1_811_80_8js_1a95a6433c7ca35778b94dc2489f6838c9" kind="variable"><name>extend</name></member>
+    <member refid="jquery-1_811_80_8js_1a43f0b96ea8ec44ca20ba86809a785614" kind="function"><name>!function</name></member>
+    <member refid="jquery-1_811_80_8js_1ad093edd3859a5fe1c8a9940c6827f811" kind="function"><name>extend</name></member>
+    <member refid="jquery-1_811_80_8js_1ae08f28e80de5c4735160cf34349821f1" kind="function"><name>each</name></member>
+    <member refid="jquery-1_811_80_8js_1ad64fceb77e67dfa33f377cfd23b524d6" kind="function"><name>s</name></member>
+  </compound>
+  <compound refid="dir_2867b8401105090ba43035c8b1fd9c0c" kind="dir"><name>js</name>
+  </compound>
+</doxygenindex>
