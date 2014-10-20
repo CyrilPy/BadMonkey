@@ -16,7 +16,7 @@
 #define DEFAULT_STEP_NUMBER		100
 #define INFRARED_SENSOR_INPUT	A0
 
-#define SCAN_ANGLE 	40
+#define SCAN_ANGLE 	45
 
 //Robot parameters
 #define WHEEL_DIAM  69 // mm
@@ -37,7 +37,7 @@ int counter;
 unsigned int  traveled_distance;  //Distance totale parcourue
 float theta = 0;      // Orientation du robot
 float posRob[2];      // Coordonées du robot
-float posObj [2];  // Coordoonées d'un obstacle
+float posObj[2];  // Coordoonées d'un obstacle
 
 int etatHttp;
 int etatParcours=2;
@@ -103,13 +103,17 @@ void motorForward()
 void motorForward(int lenght_to_do)
 {
     int steptodo = (double)lenght_to_do / (double)WHEEL_PERIM * (double) 200 + 1;
+    
 	Console.println("motorForward");
         Console.println(steptodo);
-        for (int i=0; i < steptodo ; i++)
+        
+        motor2->step(1, FORWARD, SINGLE);
+        for (int i=0; i < (steptodo-2)/2 ; i++)
 	{
-		motor1->step(1, FORWARD, SINGLE);
-		motor2->step(1, FORWARD, SINGLE); 
+		motor1->step(2, FORWARD, SINGLE);
+		motor2->step(2, FORWARD, SINGLE); 
 	}
+	motor1->step(1, FORWARD, SINGLE);
         calculPosition (steptodo,steptodo);
 }
 
@@ -232,11 +236,6 @@ void updateServer()
     Console.print(c);
   }
 }
-
-void localisePointObject(float distance)
-{
-  return;
-}
  
  
 float distanceMin=90;
@@ -283,7 +282,7 @@ void parcoursMainGauche()
           break;
       case 3:
       Console.println("cas 3, Tourne Random");
-        localisePointObject(lastDistance);
+        localizePointObject(lastDistance);
         updateServer();
         turnDegreeRight(random(45,180));
         etatParcours=4;
