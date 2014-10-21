@@ -33,6 +33,10 @@ var xmin;
 /// @def ymin valeur min des abscisses;
 var ymin;
 
+var xmax;
+
+var ymax;
+
 var xtemp;
 var ytemp;
 
@@ -57,8 +61,10 @@ window.onload = function()
             alert("Impossible de récupérer le context du canvas");
             return;
         }
-		initialize(canvas, context);
+		initialize();
 		context.beginPath();//On démarre un nouveau tracé
+		context.scale( 0.5, 0.5 );
+		
 		comServer(JsonCoord);
 }
 
@@ -75,7 +81,7 @@ function comServer(method)
 		   404 : function (){alert( "Server offline")}
 	   }
     }).done(function( msg ){method(msg);});
-   }
+}
 
    
 /// @fn function JsonCoord( monJSON)
@@ -84,7 +90,7 @@ function comServer(method)
 function JsonCoord( monJSON)
 {
 	/*interpretation du json*/
-	monJSON.replace(/"/g,'');
+	//monJSON.replace(/"/g,"");
 	monJSON = eval(monJSON);
 	/* parcours de l'array des coordonnées des obstacles*/
 	for (var k in monJSON[1])
@@ -97,10 +103,12 @@ function JsonCoord( monJSON)
 		context.lineTo(x, y);
 	}	
 	context.stroke();//On trace seulement les lignes.
-	/*parcours de l'array des coordonnées des points*/
-
+	
+	/*On cherche les mins et les max*/
 	xmin=(monJSON[2][0][0]);
 	ymin=(monJSON[2][0][1]);
+	xmax=(monJSON[2][0][0]);
+	ymax=(monJSON[2][0][1]);
 	for (var l in monJSON[2])
 	{		
 		xtemp=(monJSON[2][l][0]);
@@ -108,19 +116,27 @@ function JsonCoord( monJSON)
 		{
 			xmin=xtemp;
 		}
+		if( xmax<xtemp )
+		{
+			xmax=xtemp;
+		}
 		
 		ytemp=(monJSON[2][l][1]);
 		if( ytemp<ymin )
 		{
 			ymin=ytemp;
 		}
-
-	}
+		if( ymax<ytemp )
+		{
+			ymax=ytemp;
+		}		
+	}	
+		
 	for (var i in monJSON[2])
 	{	
 		context.beginPath();	
 		xdot=(monJSON[2][i][0]);
-		ydot=(monJSON[2][i][1]);		
+		ydot=(monJSON[2][i][1]);	
 		drawDot(xdot, ydot);
 		context.fill();
 		context.closePath();
@@ -164,10 +180,27 @@ function drawRotatedImage(image, x, y, angle) {
 /// @param y ; variables des ordonnées
 function drawDot( x, y){
 	context.fillStyle="#2c3e50"
-	context.arc(x,y,3,0,2*Math.PI);
+	context.arc(x,y,5,0,2*Math.PI);
 	
 }
 
+/*
+function scale(){
+	
+	var xfinal;
+	var yfinal;
+	
+	
+	x=(-x);
+	y=(-y);
+	
+	
+	xfinal=(abs(xmin)-x)/(window.innerWidth+xmax);
+	yfinal=(abs(ymin)-y)/(window.innerHeight+ymax);
+
+	
+}
+*/
 
 /// @fn function initialize()
 /// @brief fonction qui initialise la taille du canvas en fonction de la fenetre
@@ -193,27 +226,6 @@ function redraw() {
 /// @brief Draw canvas border for the first time.
 function resizeCanvas() 
 {
-	/*
-	xmin=(monJSON[2][i][0]);
-	ymin=(monJSON[2][i][1]);
-	for (var a in monJSON[2])
-	{	
-		xtemp=(monJSON[2][a][0]);
-		if( xtemps<xmin )
-		{
-			xmin=xtemp;
-		}
-		
-		ytemps=(monJSON[2][i][1]);
-		if( ytemps<ymin )
-		{
-			ymin=ytemp;
-		}
-		
-		console.log(xmin);
-		console.log(ymin);
-	}*/
-	
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 	redraw();
