@@ -38,12 +38,12 @@ $dsn = "mysql:host=$hostname;dbname=$database";
 		
 		foreach ($row as $tmp )
 		{
-			$xRobot = $tmp['xRobot'];
-			$yRobot = $tmp['yRobot']; 
-			$xMap   = $tmp['xMap'];
-			$yMap   = $tmp['yMap'];
-			$alpha  = $tmp['alphaRobot'];
-			$date   = $tmp['time'];
+			$xRobot = intval($tmp['xRobot']);
+			$yRobot = intval($tmp['yRobot']); 
+			$xMap   = intval($tmp['xMap']);
+			$yMap   = intval($tmp['yMap']);
+			$alpha  = intval($tmp['alphaRobot']);
+			$date   = intval($tmp['time']);
 			if($firstIteration)
 			{
 				$jsonRobot= array($xRobot,$yRobot,$alpha);

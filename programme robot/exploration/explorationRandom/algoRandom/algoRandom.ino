@@ -2,11 +2,14 @@
 // How to use it :
 // - open the Arduino serial console
 
-#include <Arduino.h>
-#include <Console.h>
+#include "header.h"
+
+
 
 #include <Bridge.h>
 #include <HttpClient.h>
+#include <YunServer.h>
+#include <YunClient.h>
 
 #include <Wire.h>
 
@@ -41,6 +44,9 @@ float posObj[2];  // Coordoonées d'un obstacle
 
 int etatHttp;
 int etatParcours=2;
+
+YunServer server;
+bool run = false;
 
 void motorInitialize()
 {	
@@ -247,7 +253,7 @@ float lastDistance=0;
 short int angleDistMin=0;
 
 int distAvance;
-void parcoursMainGauche()
+void stateMachine()
 {
 
     switch (etatParcours)
@@ -293,7 +299,7 @@ void parcoursMainGauche()
         break;
           
       case 4:
-          Console.println("cas 4, balayage");
+        Console.println("cas 4, balayage");
         //verifier si l'on a bien le point le plus proche a +/-10°
         turnDegreeRight(SCAN_ANGLE/2);
         etatParcours=1;
@@ -309,20 +315,39 @@ void parcoursMainGauche()
         turnDegreeRight(SCAN_ANGLE/2);
         distAvance = lastDistance - 130;        
         break; 
-    /* case 5:
-          Console.println("cas 5, avance après balayage");
-          lastDistance= getDistance() * 10;
-          distAvance = lastDistance - 130;          
-          motorForward(distAvance);
-          etatParcours=3;
-          break;*/
     }
+}
+
+void executeUrlCommand(YunClient client)
+{
+	String command = client.readStringUntil('/');
+        
+	Console.print("Execute ");
+	Console.print(command);
+	Console.print(" arg: ");
+
+	if (command=="start")
+	{
+		run = true;
+	}
+	else if (command=="stop")
+	{
+		run = false;
+	}
+	else
+	{
+		Console.print("Huuu?? ");
+		Console.println(client.readString());
+	}
 }
 
 void setup()
 {
 	Bridge.begin();
   	Console.begin();
+
+  	server.listenOnLocalhost();
+  	server.begin();
 
 	while (!Console)
   	{
@@ -338,7 +363,18 @@ void setup()
 
 
 void loop()
-{
-  parcoursMainGauche();
+{	
+  YunClient client = server.accept();
+
+  // Get command from the url: http://yourArduinoYun.local/arduino/toto
+  if (client)
+  {
+     executeUrlCommand(client);
+     client.stop();
+  }
+  if (run)  	
+    stateMachine();
+  else
+    delay(1000);
 }
 
