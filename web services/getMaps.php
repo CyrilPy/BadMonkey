@@ -41,6 +41,7 @@ $dsn = "mysql:host=$hostname;dbname=$database";
 			$xRobot = intval($tmp['xRobot']);
 			$yRobot = intval($tmp['yRobot']); 
 			$xMap   = intval($tmp['xMap']);
+			$yMap   = intval($tmp['yMap']);
 			$alpha  = intval($tmp['alphaRobot']);
 			$date   = intval($tmp['time']);
 			if($firstIteration)
