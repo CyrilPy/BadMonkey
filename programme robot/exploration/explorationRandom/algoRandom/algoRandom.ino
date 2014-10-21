@@ -293,7 +293,7 @@ void parcoursMainGauche()
         break;
           
       case 4:
-          Console.println("cas 4, balayage");
+        Console.println("cas 4, balayage");
         //verifier si l'on a bien le point le plus proche a +/-10°
         turnDegreeRight(SCAN_ANGLE/2);
         etatParcours=1;
@@ -309,13 +309,6 @@ void parcoursMainGauche()
         turnDegreeRight(SCAN_ANGLE/2);
         distAvance = lastDistance - 130;        
         break; 
-    /* case 5:
-          Console.println("cas 5, avance après balayage");
-          lastDistance= getDistance() * 10;
-          distAvance = lastDistance - 130;          
-          motorForward(distAvance);
-          etatParcours=3;
-          break;*/
     }
 }
 
