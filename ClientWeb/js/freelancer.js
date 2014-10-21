@@ -45,6 +45,40 @@ var ytemp;
  
 ////////////////////// FONCTIONS
 
+/// @brief fonction qui envoie les requêtes 
+$(document).keydown(function(e) 
+{
+    switch(e.which)
+	{
+        case 37: // left
+			var command = "/left/1";
+        break;
+
+        case 38: // up
+			var command = "/fwd/1";
+        break;
+
+        case 39: // right
+			var command = "/right/1";
+        break;
+
+        case 40: // down
+			var command = "/bwd/1";
+        break;
+
+        default: return; // exit this handler for other keys
+	}
+		e.preventDefault(); // prevent the default action (scroll / move caret)
+		
+		
+	$.ajax({
+       url :$('#robip').val()+command, // La ressource ciblée
+       type : 'GET', // Le type de la requête HTTP.
+	   statusCode : {
+		   404 : function (){alert( "Server offline")}
+	   }
+    });
+});
 
 /// @brief fonction qui recuperer le canvas et le contexte et appelle les fonctions de communications
 window.onload = function()
