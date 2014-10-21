@@ -2,9 +2,8 @@
 // How to use it :
 // - open the Arduino serial console
 
-#include "header.h"
-
-
+#include <Arduino.h>
+#include <Console.h>
 
 #include <Bridge.h>
 #include <HttpClient.h>
@@ -19,7 +18,7 @@
 #define DEFAULT_STEP_NUMBER		100
 #define INFRARED_SENSOR_INPUT	A0
 
-#define SCAN_ANGLE 	45
+#define SCAN_ANGLE 	60
 
 //Robot parameters
 #define WHEEL_DIAM  69 // mm
@@ -46,7 +45,7 @@ int etatHttp;
 int etatParcours=2;
 
 YunServer server;
-bool run = false;
+bool run = true;
 
 void motorInitialize()
 {	
@@ -114,10 +113,10 @@ void motorForward(int lenght_to_do)
         Console.println(steptodo);
         
         motor2->step(1, FORWARD, SINGLE);
-        for (int i=0; i < (steptodo-2)/2 ; i++)
+        for (int i=0; i < (steptodo-2) ; i++)
 	{
-		motor1->step(2, FORWARD, SINGLE);
-		motor2->step(2, FORWARD, SINGLE); 
+		motor1->step(1, FORWARD, SINGLE);
+		motor2->step(1, FORWARD, SINGLE); 
 	}
 	motor1->step(1, FORWARD, SINGLE);
         //Maj de la position
@@ -293,6 +292,7 @@ void stateMachine()
       Console.println("cas 3, Tourne Random");
         localizePointObject(lastDistance);
         updateServer();
+        motorBackward(50);
         turnDegreeRight(random(45,180));
         etatParcours=4;
         break;
@@ -302,17 +302,25 @@ void stateMachine()
         //verifier si l'on a bien le point le plus proche a +/-10°
         turnDegreeRight(SCAN_ANGLE/2);
         etatParcours=1;
-        for(int angle=0;angle<SCAN_ANGLE/2;angle++)
-        {
           lastDistance= getDistance() * 10;
           if ( lastDistance < 130)
           {
             etatParcours=3;
           }
-          turnDegreeLeft(2);
-        }
+          turnDegreeLeft(SCAN_ANGLE/2);
+          lastDistance= getDistance() * 10;
+          if ( lastDistance < 130)
+          {
+            etatParcours=3;
+          }
+          turnDegreeLeft(SCAN_ANGLE);
+          lastDistance= getDistance() * 10;
+          if ( lastDistance < 130)
+          {
+            etatParcours=3;
+          }
         turnDegreeRight(SCAN_ANGLE/2);
-        distAvance = lastDistance - 130;        
+        distAvance = lastDistance - 100;        
         break; 
     }
 }
@@ -324,6 +332,8 @@ void executeUrlCommand(YunClient client)
 	Console.print("Execute ");
 	Console.print(command);
 	Console.print(" arg: ");
+        client.println("Status: 200");
+        client.println("Access-Control-Allow-Origin: *");
 
 	if (command=="start")
 	{
@@ -349,13 +359,13 @@ void executeUrlCommand(YunClient client)
 	{
 		Console.println(client.readString());
                 Console.println("Move left...");
-                motorTurnLeft(10);
+                turnDegreeLeft(10);
 	}
 	else if (command=="right")
 	{
 		Console.println(client.readString());
                 Console.println("Move right...");
-                motorTurnRight(10);
+                turnDegreeRight(10);
 	}
         else
 	{
@@ -398,6 +408,6 @@ void loop()
   if (run)  	
     stateMachine();
   else
-    delay(1000);
+    delay(100);
 }
 
