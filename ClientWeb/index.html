@@ -82,17 +82,23 @@
                        <div class="col-lg-11 text-center">
 						   <form class="navbar-form navbar-middle" >
 						  <div class="form-group">
-							<input type="text" id="adress"  value="http://172.31.1.123:80/getmaps.php" class="form-control" placeholder="Adresse">
-							<input type="hidden" id="robip"  value="http://arduinovertfonce.imerir.lan/arduino">
+							<input type="text" id="adress"  value="http://172.31.1.123:80/getmaps.php" class="form-control" placeholder="Adresse">				
 						  </div>
 						  <button type="button" id="connect" class="btn btn-default">Actualiser</button>
 						  <button type="button" id="vider" class="btn btn-default">Vider</button>
-						  <a class="btn btn-default btn" id="download">Télécharger la carte</a>
+                           <a class="btn btn-default btn" id="download">Télécharger la carte</a><br><br>
+                           </form>
+                           <form class="navbar-form navbar-middle" > 
+                          <div class="form-group">
+							<input type="text" id="robip"  value="http://arduinovertfonce.imerir.lan/arduino" class="form-control">						
+						  </div>
+                          <button type="button" id="start" class="btn btn-default">Start</button>
+						  <button type="button" id="stop" class="btn btn-default">Stop</button>					 
 						</form>   				
                       </div>
-                    <canvas id="myCanvas">Your browser does not support the HTML5 canvas tag. Please update</canvas>
-                </div>
-            </div>
+                 </div>
+                 <canvas id="myCanvas">Your browser does not support the HTML5 canvas tag. Please update</canvas>
+          </div>
     </section>
 
     <!-- About Section -->
@@ -106,12 +112,12 @@
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
                     <p><strong>Projet robot Arduino:</strong> Perception et navigation autonome. Projet encadré par Mr Baptiste Burles co-fondateur à <a href="http://kliplab.fr/">Kliplab</a>. <div class="centered"><img src="img/YunBox.png" alt="" class="img-responsive"> </div>
-                </div></p>
+                </p></div>
 
                 <div class="col-lg-4 col-lg-offset-1">
                     <p><strong>Objectifs:</strong> Le logiciel que nous devons faire, doit cartographier de façon autonome, une zone et afficher la carte de cette zone sur un écran.
 <div class="centered"><img class="img-responsive" src="img/robot1.png" alt=""></div>
-                </div></p>
+                </p></div>
             </div>
         </div>
     </section>
@@ -165,7 +171,6 @@
     <script src="js/classie.js"></script>
     <script src="js/cbpAnimatedHeader.js"></script>
 
-    <!-- Custom Theme JavaScript -->
     <script src="js/freelancer.js"></script>
 
 </body>
