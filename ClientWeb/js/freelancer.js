@@ -9,6 +9,10 @@
 var x;
 /// @def y		ordonnées
 var y;
+
+var xr;
+/// @def y		ordonnées
+var yr;
 /// @def robx	abscisse du robot
 var robx;
 /// @def roby		ordonnées du robot
@@ -40,6 +44,11 @@ var ymax;
 var xtemp;
 var ytemp;
 
+var xfinal;
+var yfinal;	
+
+var yfrob;
+var xfrob;
  
  
  
@@ -75,7 +84,34 @@ $(document).keydown(function(e)
        url :$('#robip').val()+command, // La ressource ciblée
        type : 'GET', // Le type de la requête HTTP.
 	   statusCode : {
-		   404 : function (){alert( "Server offline")}
+		   404 : function (){alert( "Robot offline")}
+	   }
+    });
+});
+///////////////////////////////////////////////////////////////////////////ACTION ROBOT
+
+$("#start").click(function (e)
+{
+	e.preventDefault();
+	var command="/start/1";
+	$.ajax({
+       url :$('#robip').val()+command, // La ressource ciblée
+       type : 'GET', // Le type de la requête HTTP.
+	   statusCode : {
+		   404 : function (){alert( "Robot offline")}
+	   }
+    });
+});
+
+$("#stop").click(function (e)
+{
+	e.preventDefault();
+	var command="/stop/1";
+	$.ajax({
+       url :$('#robip').val()+command, // La ressource ciblée
+       type : 'GET', // Le type de la requête HTTP.
+	   statusCode : {
+		   404 : function (){alert( "Robot offline")}
 	   }
     });
 });
@@ -97,7 +133,7 @@ window.onload = function()
         }
 		initialize();
 		context.beginPath();//On démarre un nouveau tracé
-		context.scale( 0.5, 0.5 );
+		context.scale( 0.7, 0.7 );
 		
 		comServer(JsonCoord);
 }
@@ -170,8 +206,9 @@ function JsonCoord( monJSON)
 	{	
 		context.beginPath();	
 		xdot=(monJSON[2][i][0]);
-		ydot=(monJSON[2][i][1]);	
-		drawDot(xdot, ydot);
+		ydot=(monJSON[2][i][1]);
+		scale(xdot, ydot);
+		drawDot(xfinal, yfinal);
 		context.fill();
 		context.closePath();
 	}
@@ -180,7 +217,8 @@ function JsonCoord( monJSON)
 	robo=(monJSON[0][2]);
 	robx=(monJSON[0][0]);
 	roby=(monJSON[0][1]);
-	drawRotatedImage(robot, robx, roby, robo);
+	scaleRob(robx, roby);
+	drawRotatedImage(robot, xfrob, yfrob, robo);
 	/*dessins*/
 	context.closePath();
 } 
@@ -215,26 +253,21 @@ function drawRotatedImage(image, x, y, angle) {
 function drawDot( x, y){
 	context.fillStyle="#2c3e50"
 	context.arc(x,y,5,0,2*Math.PI);
-	
 }
 
-/*
-function scale(){
-	
-	var xfinal;
-	var yfinal;
-	
-	
-	x=(-x);
-	y=(-y);
-	
-	
-	xfinal=(abs(xmin)-x)/(window.innerWidth+xmax);
-	yfinal=(abs(ymin)-y)/(window.innerHeight+ymax);
 
-	
+function scale(xs,ys){
+		
+	xfinal= (xs+Math.abs(xmin))*((window.innerWidth)/(xmax+Math.abs(xmin)));
+	yfinal= (ys+Math.abs(ymin))*((window.innerHeight)/(ymax+Math.abs(ymin)));	
 }
-*/
+
+function scaleRob(xr,yr){
+		
+	xfrob= (xr+Math.abs(xmin))*((window.innerWidth)/(xmax+Math.abs(xmin)));
+	yfrob= (yr+Math.abs(ymin))*((window.innerHeight)/(ymax+Math.abs(ymin)));	
+}
+
 
 /// @fn function initialize()
 /// @brief fonction qui initialise la taille du canvas en fonction de la fenetre
