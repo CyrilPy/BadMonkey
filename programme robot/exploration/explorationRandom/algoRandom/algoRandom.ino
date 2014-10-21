@@ -45,7 +45,7 @@ int etatHttp;
 int etatParcours=2;
 
 YunServer server;
-bool run = true;
+bool run = false;
 
 void motorInitialize()
 {	
@@ -307,12 +307,6 @@ void stateMachine()
           {
             etatParcours=3;
           }
-          turnDegreeLeft(SCAN_ANGLE/2);
-          lastDistance= getDistance() * 10;
-          if ( lastDistance < 130)
-          {
-            etatParcours=3;
-          }
           turnDegreeLeft(SCAN_ANGLE);
           lastDistance= getDistance() * 10;
           if ( lastDistance < 130)
@@ -323,6 +317,17 @@ void stateMachine()
         distAvance = lastDistance - 100;        
         break; 
     }
+}
+
+void radar()
+{
+  for (int cpt = 0; cpt < 360; cpt ++)
+ {
+     lastDistance= getDistance() * 10;
+     localizePointObject(lastDistance);
+     updateServer();
+     turnDegreeRight(1);
+ }  
 }
 
 void executeUrlCommand(YunClient client)
@@ -366,6 +371,12 @@ void executeUrlCommand(YunClient client)
 		Console.println(client.readString());
                 Console.println("Move right...");
                 turnDegreeRight(10);
+	}
+	else if (command=="radar")
+	{
+		Console.println(client.readString());
+                Console.println("Scaning radar mode...");
+                radar();
 	}
         else
 	{
