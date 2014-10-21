@@ -80,14 +80,15 @@
                 <div class="col-lg-12 text-center">
                     <h2>CARTOGRAPHIE</h2><br>              
                        <div class="col-lg-11 text-center">
-                       <form class="navbar-form navbar-middle" >
-                      <div class="form-group">
-                        <input type="text" id="adress"  value="http://172.31.1.123:80/getmaps.php" class="form-control" placeholder="Adresse">
-                      </div>
-                      <button type="button" id="connect" class="btn btn-default">Actualiser</button>
-                      <button type="button" id="vider" class="btn btn-default">Vider</button>
-                      <a class="btn btn-default btn" id="download">Télécharger la carte</a>
-                    </form>   				
+						   <form class="navbar-form navbar-middle" >
+						  <div class="form-group">
+							<input type="text" id="adress"  value="http://172.31.1.123:80/getmaps.php" class="form-control" placeholder="Adresse">
+							<input type="hidden" id="robip"  value="http://arduinovertfonce.imerir.lan/arduino">
+						  </div>
+						  <button type="button" id="connect" class="btn btn-default">Actualiser</button>
+						  <button type="button" id="vider" class="btn btn-default">Vider</button>
+						  <a class="btn btn-default btn" id="download">Télécharger la carte</a>
+						</form>   				
                       </div>
                     <canvas id="myCanvas">Your browser does not support the HTML5 canvas tag. Please update</canvas>
                 </div>

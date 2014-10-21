@@ -270,8 +270,7 @@ void stateMachine()
      case 2:
       Console.println("cas 2, Mur ou pas");
         lastDistance= getDistance() * 10;
-          Console.println(lastDistance);
-          
+          Console.println(lastDistance);          
             if(lastDistance < 130)
             {  
               
@@ -334,7 +333,31 @@ void executeUrlCommand(YunClient client)
 	{
 		run = false;
 	}
-	else
+	else if (command=="fwd")
+	{
+		Console.println(client.readString());
+                Console.println("Move forward...");
+                motorForward(10);
+	}
+	else if (command=="bwd")
+	{
+		Console.println(client.readString());
+                Console.println("Move backward...");
+                motorBackward(10);
+	}
+	else if (command=="left")
+	{
+		Console.println(client.readString());
+                Console.println("Move left...");
+                motorTurnLeft(10);
+	}
+	else if (command=="right")
+	{
+		Console.println(client.readString());
+                Console.println("Move right...");
+                motorTurnRight(10);
+	}
+        else
 	{
 		Console.print("Huuu?? ");
 		Console.println(client.readString());
