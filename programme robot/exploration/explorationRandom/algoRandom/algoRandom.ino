@@ -219,12 +219,16 @@ void turnDegreeRight(int degree_to_turn){
 
 //Fonction qui calcul la position d'un point d'un obstacle
 void localizePointObject (float irDetection){
-    
-     //1 Calcul de X, Y du point detecté par rapport au robot
-     float posObjX = irDetection * sin (theta);
-     float posObjY = irDetection * cos (theta);
+  
+     irDetection += 45;
+     //1 Conversion de l'angle theta en radian
+     float thetaRadian = theta * PI / 180;
      
-     //2 Translation des coordonées par rapport au repère base
+     //2 Calcul de X, Y du point detecté par rapport au robot
+     float posObjX = irDetection * sin (thetaRadian);
+     float posObjY = irDetection * cos (thetaRadian);
+     
+     //3 Translation des coordonées par rapport au repère base
      //Enregistrement dans le tableau
      posObj [0] =  posRob[0] + posObjX;
      posObj [1] =  posRob[1] + posObjY;
@@ -323,11 +327,29 @@ void radar()
 {
   for (int cpt = 0; cpt < 360; cpt ++)
  {
-     lastDistance= getDistance() * 10;
+     lastDistance= getDistance() * 10;     
+      Console.println(lastDistance);
      localizePointObject(lastDistance);
      updateServer();
      turnDegreeRight(1);
  }  
+}
+
+void singleScan()
+{
+     lastDistance= getDistance() * 10;     
+     Console.println(lastDistance);
+     localizePointObject(lastDistance); 
+     updateServer(); 
+}
+
+void resetOdo()
+{
+    theta = 0;      // Orientation du robot
+    posRob[0];      // Coordonées du robot
+    posRob[1];      // Coordonées du robot
+    posObj[0];  // Coordoonées d'un obstacle
+    posObj[1];  // Coordoonées d'un obstacle
 }
 
 void executeUrlCommand(YunClient client)
@@ -372,11 +394,23 @@ void executeUrlCommand(YunClient client)
                 Console.println("Move right...");
                 turnDegreeRight(10);
 	}
+	else if (command=="scan")
+	{
+		Console.println(client.readString());
+                Console.println("Scanning one point");
+                singleScan();
+	}
 	else if (command=="radar")
 	{
 		Console.println(client.readString());
-                Console.println("Scaning radar mode...");
+                Console.println("Scanning radar mode...");
                 radar();
+	}
+	else if (command=="reset")
+	{
+		Console.println(client.readString());
+                Console.println("Reseting odomtry...");
+                resetOdo();
 	}
         else
 	{
@@ -409,8 +443,6 @@ void setup()
 void loop()
 {	
   YunClient client = server.accept();
-
-  // Get command from the url: http://yourArduinoYun.local/arduino/toto
   if (client)
   {
      executeUrlCommand(client);
